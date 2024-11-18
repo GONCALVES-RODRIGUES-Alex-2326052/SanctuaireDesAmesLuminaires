@@ -22,7 +22,6 @@ public class SanctuaireDesAmesLuminaires {
     public static void genererCreaturesAleatoires(Hopital hopital) {
         Random random = new Random();
 
-        // Création d'un service médical pour accueillir les créatures
         ServiceMedical serviceMedical = new ServiceMedical();
         hopital.ajouterService(serviceMedical);
 
@@ -44,7 +43,6 @@ public class SanctuaireDesAmesLuminaires {
                 creature = new Elfe(nom, sexe, poids, taille, age, moral, maladies);
             }
 
-            // Ajouter la créature au service
             serviceMedical.ajouterCreature(creature);
         }
     }
@@ -54,10 +52,8 @@ public class SanctuaireDesAmesLuminaires {
         Random random = new Random();
         List<Maladie> maladies = new ArrayList<>();
 
-        // Exemple de générer entre 0 et 3 maladies aléatoires
         int nbMaladies = random.nextInt(4);  // 0 à 3 maladies
         for (int i = 0; i < nbMaladies; i++) {
-            // Générer une maladie aléatoire à partir de la classe Maladie
             Maladie maladie = Maladie.genererMaladieAleatoire();
             maladies.add(maladie);
         }
