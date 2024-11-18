@@ -1,11 +1,14 @@
 import controller.SanctuaireDesAmesLuminairesController;
 import controller.CreationCreature;
+import controller.MaladieController;
 import model.*;
 import view.ConsoleView;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class SanctuaireDesAmesLuminaires {
 
@@ -34,7 +37,7 @@ public class SanctuaireDesAmesLuminaires {
             int age = 10 + random.nextInt(50);  // Âge entre 10 et 60 ans
             int moral = 50 + random.nextInt(51); 
 
-            List<Maladie> maladies = genererMaladiesAleatoires();
+            List<Maladie> maladies = MaladieController.genererMaladiesAleatoires();
 
             Creature creature;
             if (random.nextBoolean()) {
@@ -45,19 +48,5 @@ public class SanctuaireDesAmesLuminaires {
 
             serviceMedical.ajouterCreature(creature);
         }
-    }
-
-    // Méthode pour générer une liste de maladies aléatoires
-    public static List<Maladie> genererMaladiesAleatoires() {
-        Random random = new Random();
-        List<Maladie> maladies = new ArrayList<>();
-
-        int nbMaladies = random.nextInt(4);  // 0 à 3 maladies
-        for (int i = 0; i < nbMaladies; i++) {
-            Maladie maladie = Maladie.genererMaladieAleatoire();
-            maladies.add(maladie);
-        }
-
-        return maladies;
     }
 }
