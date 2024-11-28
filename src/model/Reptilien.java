@@ -2,11 +2,11 @@ package model;
 
 import java.util.List;
 
-public class Nain extends Creature {
-    private List<Maladie> maladies;  // Liste de maladies spécifiques aux Nains
+public class Reptilien extends Creature{
+	private List<Maladie> maladies;  // Liste de maladies spécifiques aux Reptiliens
 
-    // Constructeur de la classe Elfe qui appelle le constructeur de Creature
-    public Nain(String nom, String sexe, double poids, double taille, int age, int moral, List<Maladie> maladies) {
+    // Constructeur de la classe HommeBete qui appelle le constructeur de Creature
+    public Reptilien(String nom, String sexe, double poids, double taille, int age, int moral, List<Maladie> maladies) {
         // Appel du constructeur de la classe mère (Creature)
         super(nom, sexe, poids, taille, age, moral);
         this.maladies = maladies; // Initialisation de la liste de maladies
@@ -21,7 +21,7 @@ public class Nain extends Creature {
         this.maladies = maladies;
     }
 
-    // Méthode spécifique pour afficher les maladies du Nain
+    // Méthode spécifique pour afficher les maladies du Reptilien
     public void afficherMaladies() {
         if (maladies != null && !maladies.isEmpty()) {
             System.out.println("Maladies de " + getNom() + ":");
@@ -33,10 +33,10 @@ public class Nain extends Creature {
         }
     }
 
-    // Méthode pour afficher les caractéristiques du Nain
+    // Méthode pour afficher les caractéristiques du Reptilien
     @Override
     public void afficherCaracteristiques() {
         super.afficherCaracteristiques();  // Appel de la méthode de Creature
-        afficherMaladies();  // Affiche les maladies du Nain
+        afficherMaladies();  // Affiche les maladies du Reptilien
     }
 }
