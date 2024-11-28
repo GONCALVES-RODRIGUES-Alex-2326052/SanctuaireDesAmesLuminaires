@@ -44,7 +44,13 @@ public class SanctuaireDesAmesLuminaires {
                 creature = new Nain(nom, sexe, poids, taille, age, moral, maladies);
             } else {
                 creature = new Elfe(nom, sexe, poids, taille, age, moral, maladies);
-            }
+                /*creature = new Orques();
+                creature = new HommeBetes();
+                creature = new Zombies();
+                creature = new Vampires();
+                creature = new Reptiliens();
+                creature = new Lycanthropes();*/
+                }
 
             serviceMedical.ajouterCreature(creature);
         }
