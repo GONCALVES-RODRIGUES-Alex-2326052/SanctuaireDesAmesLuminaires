@@ -23,12 +23,33 @@ public abstract class Creature {
         this.etat = 100;  // Par défaut, l'état est à 100 (parfaitement en bonne santé)
     }
 
-    // Méthode pour améliorer l'état de la créature
+ // Méthode pour améliorer l'état de la créature
     public void ameliorerEtat(int amelioration) {
         this.etat += amelioration;
         if (this.etat > 100) {
             this.etat = 100;  // L'état ne doit pas dépasser 100
         }
+    }
+
+    //Méthode pour diminuer l'état de la créature
+    public void diminuerEtat(int diminution) {
+        this.etat -= diminution;
+        if (this.etat < 0)
+            etat = 0;
+    }
+
+    // Méthode pour diminuer le moral de la créature
+    public void diminuerMoral(int diminution) {
+        this.moral -= diminution;
+        if(this.moral < 0)
+            this.moral = 0;
+    }
+
+    // Méthode pour améliorer le moral de la créature
+    public void ameliorerMoral(int ameliorer) {
+        this.moral += ameliorer;
+        if (this.moral > 100)
+            this.moral = 100;
     }
 
     // Méthode pour afficher les caractéristiques de la créature
