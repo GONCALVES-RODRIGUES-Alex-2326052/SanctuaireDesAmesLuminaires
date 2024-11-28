@@ -37,7 +37,7 @@ public class ConsoleView {
         boolean valid = false;
 
         while (!valid) {
-            System.out.print(message); // Affiche le message (prompt)
+            System.out.print(message);
             try {
                 choix = scanner.nextInt();
                 // Vérifier que le choix est dans la plage spécifiée

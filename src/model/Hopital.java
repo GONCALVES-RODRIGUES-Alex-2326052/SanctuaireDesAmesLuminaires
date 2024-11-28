@@ -16,8 +16,6 @@ public class Hopital {
         this.medecins = new ArrayList<>();
     }
 
-    // --- Méthodes pour gérer les services médicaux ---
-
     public boolean ajouterService(ServiceMedical service) {
         if (services.size() < nombreMaxServices) {
             services.add(service);
@@ -41,14 +39,12 @@ public class Hopital {
         System.out.println("Nombre de services : " + (services != null ? services.size() : 0));
         if (services != null && !services.isEmpty()) {
             for (ServiceMedical service : services) {
-                service.afficherService();  // Affiche l'état de chaque service médical
+                service.afficherService();
             }
         } else {
             System.out.println("Aucun service disponible.");
         }
     }
-
-    // --- Méthodes pour gérer les médecins ---
 
     public void ajouterMedecin(Medecin medecin) {
         medecins.add(medecin);
@@ -62,11 +58,6 @@ public class Hopital {
         return medecins;
     }
 
-    // --- Méthodes pour gérer l'hôpital ---
-
-    /**
-     * Affiche le nombre total de créatures dans tous les services de l'hôpital.
-     */
     public void afficherNombreDeCreatures() {
         int total = 0;
         for (ServiceMedical service : services) {
@@ -75,9 +66,6 @@ public class Hopital {
         System.out.println("Nombre total de créatures dans l'hôpital : " + total);
     }
 
-    /**
-     * Affiche les caractéristiques de toutes les créatures dans tous les services.
-     */
     public void afficherCreatures() {
         for (ServiceMedical service : services) {
             System.out.println("Service : " + service.getNom());
@@ -85,38 +73,50 @@ public class Hopital {
         }
     }
 
-    // --- Simulation temporelle ---
-    /**
-     * Simule les événements de l'hôpital (modifications aléatoires d'état des créatures et services).
-     */
     public void simulationEvenements() {
-        // Modification aléatoire des créatures dans chaque service
         for (ServiceMedical service : services) {
             service.modifierEtatAleatoireDesCreatures();
         }
-
-        // Modification aléatoire des états des services médicaux
         for (ServiceMedical service : services) {
             service.modifierEtatService();
         }
     }
 
-    // --- Méthode d'affichage des caractéristiques ---
+    public void assignerPatientsMedecins() {
+    	for (ServiceMedical service : services) {
+    		for(Creature creature : service.getCreatures()) {
+    			boolean prisEnCharge = false;
+    			for(Medecin medecin : service.getMedecins()) {
+    				if(medecin.getPatients().contains(creature)) {
+    					prisEnCharge= true;
+    					break;
+    				}
+    			}
+    			if(!prisEnCharge) {
+    				for(Medecin medecin : service.getMedecins()) {
+    					medecin.getPatients().add(creature);
+    					System.out.println("Creature "+creature.getNom()+" assignee au medecin "+medecin.getNom());
+    					break;
+    				}
+    			}
+    		}
+    	}
+    }
+   
     public void afficherCaracteristiques() {
         for (ServiceMedical service : services) {
-            System.out.println("Service : " + service.getNom());  // Affiche le nom du service
-            List<Creature> creatures = service.getCreatures();  // Récupère la liste des créatures dans le service
+            //System.out.println("Service : " + service.getNom());
+            List<Creature> creatures = service.getCreatures();
 
             for (Creature creature : creatures) {
-                // Affiche les caractéristiques complètes de la créature (nom, sexe, type, état, etc.)
                 System.out.println("Créature : " + creature.getNom());
-                System.out.println("Type : " + creature.getClass().getSimpleName());  // Affiche le type (Elfe, Nain, etc.)
+                System.out.println("Type : " + creature.getClass().getSimpleName());
                 System.out.println("Sexe : " + creature.getSexe());
                 System.out.println("Poids : " + creature.getPoids());
                 System.out.println("Taille : " + creature.getTaille());
                 System.out.println("Âge : " + creature.getAge());
                 System.out.println("Moral : " + creature.getMoral());
-                System.out.println("État : " + creature.getEtat());  // Affiche l'état de la créature
+                System.out.println("État : " + creature.getEtat());
                 System.out.println("-----------");
             }
         }

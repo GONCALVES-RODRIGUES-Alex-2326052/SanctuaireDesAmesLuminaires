@@ -63,13 +63,7 @@ public class SanctuaireDesAmesLuminairesController {
         }
     }
     private void afficherCreatures() {
-        List<ServiceMedical> services = hopital.getServices();
-        for (ServiceMedical service : services) {
-            List<Creature> creatures = service.getCreatures();
-            System.out.println("Liste des créatures présentes dans l'hôpital :");
-            for (Creature creature : creatures) {
-                creature.afficherCaracteristiques();  // Affiche les caractéristiques détaillées
-            }
-        }
+    	System.out.println("Liste des créatures présentes dans l'hôpital :");
+        hopital.afficherCaracteristiques();
     }
 }
