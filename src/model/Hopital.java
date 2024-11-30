@@ -2,6 +2,10 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.Creature;
+import model.Elfe;
+import model.Nain;
+import model.LoupGarous;
 
 public class Hopital {
     private String nom;
@@ -103,21 +107,35 @@ public class Hopital {
 
     // --- Méthode d'affichage des caractéristiques ---
     public void afficherCaracteristiques() {
-        for (ServiceMedical service : services) {
-            System.out.println("Service : " + service.getNom());  // Affiche le nom du service
-            List<Creature> creatures = service.getCreatures();  // Récupère la liste des créatures dans le service
+    	for (ServiceMedical service : services) {
+            System.out.println("Service : " + service.getNom()); // Affiche le nom du service
+            List<Creature> creatures = service.getCreatures();   // Récupère la liste des créatures dans le service
 
-            for (Creature creature : creatures) {
-                // Affiche les caractéristiques complètes de la créature (nom, sexe, type, état, etc.)
-                System.out.println("Créature : " + creature.getNom());
-                System.out.println("Type : " + creature.getClass().getSimpleName());  // Affiche le type (Elfe, Nain, etc.)
-                System.out.println("Sexe : " + creature.getSexe());
-                System.out.println("Poids : " + creature.getPoids());
-                System.out.println("Taille : " + creature.getTaille());
-                System.out.println("Âge : " + creature.getAge());
-                System.out.println("Moral : " + creature.getMoral());
-                System.out.println("État : " + creature.getEtat());  // Affiche l'état de la créature
-                System.out.println("-----------");
+            if (creatures.isEmpty()) {
+                System.out.println("Aucune créature dans ce service.");
+            } else {
+                for (Creature creature : creatures) {
+                    System.out.println("Créature : " + creature.getNom());
+                    System.out.println("Type : " + creature.getType());
+                    System.out.println("Sexe : " + creature.getSexe());
+                    System.out.println("Poids : " + creature.getPoids() + " kg");
+                    System.out.println("Taille : " + creature.getTaille() + " m");
+                    System.out.println("Âge : " + creature.getAge() + " ans");
+                    System.out.println("Moral : " + creature.getMoral() + "/100");
+                    System.out.println("État : " + creature.getEtat() + "/100");
+
+                    // Afficher des informations spécifiques pour un type particulier
+                    if (creature instanceof LoupGarous) {
+                        LoupGarous loup = (LoupGarous) creature;
+                        System.out.println("Catégorie d'âge : " + loup.getCategorieAge());
+                        System.out.println("Force : " + loup.getForce());
+                        System.out.println("Facteur de domination : " + loup.getFacteurDomination());
+                        System.out.println("Rang : " + loup.getRang());
+                        System.out.println("Niveau : " + loup.getNiveau());
+                        System.out.println("Meute : " + (loup.Solitaire() ? "Solitaire" : loup.getMeute()));
+                    }
+                    System.out.println("-----------");
+                }
             }
         }
     }

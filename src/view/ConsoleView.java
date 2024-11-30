@@ -57,7 +57,7 @@ public class ConsoleView {
         boolean valid = false;
 
         while (!valid) {
-            System.out.print(message); // Affiche le message (prompt)
+            System.out.print("\n" + message); // Affiche le message (prompt)
             try {
                 choix = scanner.nextInt(); // Lire l'entrée de l'utilisateur
 

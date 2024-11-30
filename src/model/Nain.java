@@ -11,6 +11,11 @@ public class Nain extends Creature {
         super(nom, sexe, poids, taille, age, moral);
         this.maladies = maladies; // Initialisation de la liste de maladies
     }
+    
+    @Override
+    public String getType() {
+    	return " Nain";
+    }
 
     // Getter et Setter pour maladies
     public List<Maladie> getMaladies() {

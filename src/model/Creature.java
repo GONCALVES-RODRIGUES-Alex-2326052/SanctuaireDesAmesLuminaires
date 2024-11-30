@@ -22,6 +22,8 @@ public abstract class Creature {
         this.moral = moral;
         this.etat = 100;  // Par défaut, l'état est à 100 (parfaitement en bonne santé)
     }
+    
+    public abstract String getType();
 
     // Méthode pour améliorer l'état de la créature
     public void ameliorerEtat(int amelioration) {
@@ -34,6 +36,7 @@ public abstract class Creature {
     // Méthode pour afficher les caractéristiques de la créature
     public void afficherCaracteristiques() {
         System.out.println("Nom : " + nom);
+        System.out.println("Type :" + getType());
         System.out.println("Sexe : " + sexe);
         System.out.println("Poids : " + poids + " kg");
         System.out.println("Taille : " + taille + " m");

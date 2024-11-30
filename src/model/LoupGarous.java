@@ -1,8 +1,10 @@
 package model;
 
+import java.util.List;
 import java.util.Random;
 
 public class LoupGarous extends Creature{
+	private List<Maladie> maladies;
 	
 	private String categorieAge;
     private int force;
@@ -11,7 +13,6 @@ public class LoupGarous extends Creature{
     private double niveau;
     private double facteurImpetuosite;
     private String meute;
-    private boolean malade;
     private boolean humain;
     
     /**
@@ -19,6 +20,8 @@ public class LoupGarous extends Creature{
 	 * @param sexe
 	 * @param poids
 	 * @param taille
+     * @param tailleHumain 
+     * @param tailleLoup 
 	 * @param age
 	 * @param moral
 	 * @param categorieAge
@@ -30,19 +33,64 @@ public class LoupGarous extends Creature{
 	 * @param meute
 	 */
 	
-	public LoupGarous(String nom, String sexe, double poids, double taille, int age, int moral, String categorieAge, int force, int facteurDomination, int rang, double niveau, double facteurImpetuosite, String meute, boolean malade, boolean humain) {
-		
+    public LoupGarous(String nom, String sexe, double poids, double taille, int age, int moral,
+        String categorieAge, int force, int facteurDomination, int rang,
+        double facteurImpetuosite, String meute, List<Maladie> maladies) {
 		super(nom, sexe, poids, taille, age, moral);
 		this.categorieAge = categorieAge;
 		this.force = force;
 		this.facteurDomination = facteurDomination;
 		this.rang = rang;
-		this.niveau = niveau;
 		this.facteurImpetuosite = facteurImpetuosite;
 		this.meute = meute;
-		this.malade = malade;
-		this.humain = humain;
+		this.humain = true;
+		this.maladies = maladies;
+		this.niveau = calculerNiveau();
+}
+	
+    @Override
+	public void afficherCaracteristiques() {
+        super.afficherCaracteristiques();
+        System.out.println("Catégorie d'âge : " + categorieAge);
+        System.out.println("Force : " + force);
+        System.out.println("Facteur de domination : " + facteurDomination);
+        System.out.println("Rang : " + rang);
+        System.out.println("Niveau : " + niveau);
+        System.out.println("Facteur d'impétuosité : " + facteurImpetuosite);
+        System.out.println("Meute : " + (meute != null ? meute : "Solitaire"));
+        System.out.println("Forme actuelle : " + (humain ? "Humaine" : "Loup-garou"));
+    }
+	
+	@Override
+    public String getType() {
+    	return " Lycanthrope";
+    }
+	
+	public void hurler() {
+		if(humain) {
+			System.out.println("Ne peux pas hurler sous forme humaine !");
+		}
+		else {
+			System.out.println("Pousse un puissant hurlement !");
+		}
 	}
+	
+	/**
+	 * @return maladies
+	 */
+	
+	public List<Maladie> getMaladies() {
+        return maladies;
+    }
+	
+	/**
+	 * 
+	 * @param maladies
+	 */
+
+    public void setMaladies(List<Maladie> maladies) {
+        this.maladies = maladies;
+    }
     
 	/**
 	 * @return CatégorieAge
@@ -163,10 +211,9 @@ public class LoupGarous extends Creature{
 	
 	
 	/**
-	 * 
 	 * @param min
 	 * @param max
-	 * @return 
+	 * @return un coefficiant aléatoire pour calculerNiveau
 	 */
 	
 	private double coeffAléatoire(double min, double max) {
@@ -204,6 +251,15 @@ public class LoupGarous extends Creature{
 	public boolean Solitaire() {
 		return meute.equalsIgnoreCase("solitaire");
 	}
-    
 	
+	public void afficherMaladies() {
+        if (maladies != null && !maladies.isEmpty()) {
+            System.out.println("Maladies de " + getNom() + ":");
+            for (Maladie maladie : maladies) {
+                System.out.println("- " + maladie.getNom());
+            }
+        } else {
+            System.out.println(getNom() + " n'a pas de maladies.");
+        }
+    }
 }
