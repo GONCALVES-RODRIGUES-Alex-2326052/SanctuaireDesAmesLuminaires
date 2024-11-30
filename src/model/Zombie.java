@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Random;
 
 public class Zombie extends Creature {
 	 private List<Maladie> maladies;  // Liste de maladies spécifiques aux Zombies
@@ -32,12 +33,24 @@ public class Zombie extends Creature {
 	            System.out.println(getNom() + " n'a pas de maladies.");
 	        }
 	    }
+	    
+	    // Methode de regeneration de quand les zombies meurt
+	    public int regeneration() {
+	    	Random random = new Random();
+	    	return random.nextInt(21);
+	    }
 
 	    // Méthode pour afficher les caractéristiques du Zombie
 	    @Override
 	    public void afficherCaracteristiques() {
 	        super.afficherCaracteristiques();  // Appel de la méthode de Creature
 	        afficherMaladies();  // Affiche les maladies du Zombie
+	    }
+	    
+	 // Methode retournant l'espece de notre créature
+	    @Override
+	    public String getEspece() {
+	    	return "Zombie";
 	    }
 
 }

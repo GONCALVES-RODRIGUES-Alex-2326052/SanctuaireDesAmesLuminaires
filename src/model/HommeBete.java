@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Random;
 
 public class HommeBete extends Creature{
 	 private List<Maladie> maladies;  // Liste de maladies spécifiques aux HommeBetes
@@ -38,5 +39,11 @@ public class HommeBete extends Creature{
 	    public void afficherCaracteristiques() {
 	        super.afficherCaracteristiques();  // Appel de la méthode de Creature
 	        afficherMaladies();  // Affiche les maladies de l'HommeBete
+	    }
+	    
+	 // Methode retournant l'espece de notre créature
+	    @Override
+	    public String getEspece() {
+	    	return "HommeBete";
 	    }
 }
