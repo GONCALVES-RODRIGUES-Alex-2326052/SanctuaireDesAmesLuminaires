@@ -84,7 +84,7 @@ public class CreationCreature {
     
     
 
-    private static Elfe creerElfe(){
+    public static Elfe creerElfe(){
         String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(45, 65);
@@ -96,7 +96,7 @@ public class CreationCreature {
         return new Elfe(nom, sexe, poids, taille, age, moral, maladies);
     }
 
-    private static Nain creerNain() {
+    public static Nain creerNain() {
         String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(60,200);
@@ -107,7 +107,7 @@ public class CreationCreature {
         return new Nain(nom,sexe,poids,taille,age,moral, maladies);
     }
     
-    private static LoupGarous creerLycanthrope() {
+    public static LoupGarous creerLycanthrope() {
         String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(70,100);
@@ -118,8 +118,8 @@ public class CreationCreature {
         int force = genererValeurAleatoire(moral, age);
         int facteurDomination = genererValeurAleatoire(1, 100);
         int rang = facteurDomination / 10;
-        double niveau = null;
-        double facteurImpetuosite = null;
+        double niveau = 0;
+        double facteurImpetuosite = 0;
         String meute = genererNomMeute();
         boolean humain;
         List<Maladie> maladies = new ArrayList<>();

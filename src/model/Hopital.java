@@ -2,10 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.Creature;
-import model.Elfe;
-import model.Nain;
-import model.LoupGarous;
 
 public class Hopital {
     private String nom;

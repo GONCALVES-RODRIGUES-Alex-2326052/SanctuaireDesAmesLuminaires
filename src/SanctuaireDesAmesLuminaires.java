@@ -30,20 +30,22 @@ public class SanctuaireDesAmesLuminaires {
 
 
         for (int i = 0; i < 2; i++) {
-            String nom = CreationCreature.genererNom();
-            String sexe = random.nextBoolean() ? "Mâle" : "Femelle";
-            double poids = 50 + random.nextDouble() * 50;  // Poids entre 50 et 100 kg
-            double taille = 1.5 + random.nextDouble() * 0.5;  // Taille entre 1.5 et 2.0 m
-            int age = 10 + random.nextInt(50);  // Âge entre 10 et 60 ans
-            int moral = 50 + random.nextInt(51); 
-
             List<Maladie> maladies = MaladieController.genererMaladiesAleatoires();
 
             Creature creature;
-            if (random.nextBoolean()) {
-                creature = new Nain(nom, sexe, poids, taille, age, moral, maladies);
-            } else {
-                creature = new Elfe(nom, sexe, poids, taille, age, moral, maladies);
+            int typeCreature = random.nextInt(3); // 0 = Nain, 1 = Elfe, 2 = Loup-Garou
+            switch (typeCreature) {
+                case 0:
+                    creature = CreationCreature.creerNain();
+                    break;
+                case 1:
+                    creature = CreationCreature.creerElfe();
+                    break;
+                case 2:
+                    creature = CreationCreature.creerLycanthrope();
+                	break;
+                default:
+                    throw new IllegalStateException("Type de créature inconnu");
             }
 
             serviceMedical.ajouterCreature(creature);

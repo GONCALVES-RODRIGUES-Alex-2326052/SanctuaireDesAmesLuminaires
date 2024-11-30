@@ -30,13 +30,13 @@ public class LoupGarous extends Creature{
 	 * @param rang
 	 * @param niveau
 	 * @param facteurImpetuosite
+     * @param  
 	 * @param meute
 	 */
 	
-    public LoupGarous(String nom, String sexe, double poids, double taille, int age, int moral,
-        String categorieAge, int force, int facteurDomination, int rang,
-        double facteurImpetuosite, String meute, List<Maladie> maladies) {
-		super(nom, sexe, poids, taille, age, moral);
+    public LoupGarous(String nom, String sexe, double poids, double taille, int age, int moral, String categorieAge, int force, int facteurDomination, int rang,double facteurImpetuosite, String meute, List<Maladie> maladies) {
+		
+    	super(nom, sexe, poids, taille, age, moral);
 		this.categorieAge = categorieAge;
 		this.force = force;
 		this.facteurDomination = facteurDomination;
@@ -47,8 +47,7 @@ public class LoupGarous extends Creature{
 		this.maladies = maladies;
 		this.niveau = calculerNiveau();
 }
-	
-    @Override
+	@Override
 	public void afficherCaracteristiques() {
         super.afficherCaracteristiques();
         System.out.println("Catégorie d'âge : " + categorieAge);
@@ -59,6 +58,7 @@ public class LoupGarous extends Creature{
         System.out.println("Facteur d'impétuosité : " + facteurImpetuosite);
         System.out.println("Meute : " + (meute != null ? meute : "Solitaire"));
         System.out.println("Forme actuelle : " + (humain ? "Humaine" : "Loup-garou"));
+        afficherMaladies();
     }
 	
 	@Override

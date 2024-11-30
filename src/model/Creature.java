@@ -45,6 +45,7 @@ public abstract class Creature {
         System.out.println("État : " + etat + "/100");  // Affichage de l'état
     }
 
+
     // Getters et Setters
     public String getNom() {
         return nom;
