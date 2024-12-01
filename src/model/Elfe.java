@@ -1,9 +1,11 @@
 package model;
 
 import java.util.List;
+import java.util.Random;
 
 public class Elfe extends Creature {
     private List<Maladie> maladies;  // Liste de maladies spécifiques aux Elfes
+    Random random;
 
     // Constructeur de la classe Elfe qui appelle le constructeur de Creature
     public Elfe(String nom, String sexe, double poids, double taille, int age, int moral, List<Maladie> maladies) {
@@ -19,6 +21,11 @@ public class Elfe extends Creature {
 
     public void setMaladies(List<Maladie> maladies) {
         this.maladies = maladies;
+    }
+    
+    // Methode pour demoraliser les autres Créature
+    public int demoraliser() {
+    	 return random.nextInt(10);
     }
 
     // Méthode spécifique pour afficher les maladies de l'Elfe
@@ -38,5 +45,11 @@ public class Elfe extends Creature {
     public void afficherCaracteristiques() {
         super.afficherCaracteristiques();  // Appel de la méthode de Creature
         afficherMaladies();  // Affiche les maladies de l'Elfe
+    }
+    
+ // Methode retournant l'espece de notre créature
+    @Override
+    public String getEspece() {
+    	return "Elfe";
     }
 }

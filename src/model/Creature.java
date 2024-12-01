@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Random;
 
 public abstract class Creature {
     private String nom;
@@ -11,6 +12,7 @@ public abstract class Creature {
     private int moral;
     private int etat;  // Nouvel attribut pour l'état de la créature
     private List<Maladie> maladies;
+    private Random random;
 
     // Constructeur de la classe Creature
     public Creature(String nom, String sexe, double poids, double taille, int age, int moral) {
@@ -95,5 +97,53 @@ public abstract class Creature {
     public List<Maladie> getMaladies() {
         return maladies;
     }
+    
+    // Methode permettant de recuperer l'espece de la créature
+    public abstract String getEspece();
+
+    
+    // Methode pour l'attente
+    public String attendre() {
+    	diminuerMoral(random.nextInt(5));
+    	return getNom() + " est en train d'attendre.";
+    }
+    
+    // Methode pour l'hurlement
+    public String hurler() {
+    	return getNom() + " hurle parce que son moral est au plus bas !";
+    }
+    
+    // Methode pour s'emporter 
+    public String emporter() {
+    	if (random.nextBoolean()) {
+    		contaminer();
+    		return getNom() + " a contaminer une autres créature en s'emportant apres multiples hurlement !";
+    	}
+    	else return getNom() + " s'est emporter a cause de hurlement consecutive !";
+    }
+    
+    // Methode pour tomber malade
+    public String tomberMalade(Maladie maladie) {
+    	return getNom() + " a attraper " + maladie.getNom() + " !";
+    }
+    
+    // Methode pour trepasser (mourir)
+    public String trepasser() {
+    	return getNom() + " est mort !";
+    }
+    
+    // Methode pour soigner
+    public String etreSoignee(int soin) {
+    	ameliorerEtat(soin);
+    	ameliorerMoral(soin);
+    	return getNom() + " a été soignée !";
+    }
+    
+
+	 // Methode pour contaminer les autres Créature
+		public Maladie contaminer() {
+			random = new Random();
+			return maladies.get(random.nextInt(maladies.size()));
+		}
 
 }

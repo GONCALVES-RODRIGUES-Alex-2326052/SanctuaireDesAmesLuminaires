@@ -39,4 +39,10 @@ public class Reptilien extends Creature{
         super.afficherCaracteristiques();  // Appel de la méthode de Creature
         afficherMaladies();  // Affiche les maladies du Reptilien
     }
+    
+    // Methode retournant l'espece de notre créature
+    @Override
+    public String getEspece() {
+    	return "Reptilien";
+    }
 }
