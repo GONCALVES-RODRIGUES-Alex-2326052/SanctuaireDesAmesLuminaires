@@ -15,7 +15,12 @@ public class SanctuaireDesAmesLuminaires {
     public static void main(String[] args) {
         Hopital hopital = new Hopital("Sanctuaire des Âmes Luminaires", 10);
         ConsoleView view = new ConsoleView();
-
+        
+        ServiceMedical serviceMedical = new ServiceMedical("Service Général");
+        hopital.ajouterService(serviceMedical);
+        hopital.genererCreaturesParDefaut(hopital);  
+        hopital.genererMedecinsParDefaut();
+      
         SanctuaireDesAmesLuminairesController controller = new SanctuaireDesAmesLuminairesController(hopital, view);
         genererCreaturesAleatoires(hopital);
         controller.demarrer();

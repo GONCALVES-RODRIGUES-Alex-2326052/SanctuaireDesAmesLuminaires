@@ -16,15 +16,16 @@ public class Hopital {
         this.medecins = new ArrayList<>();
     }
 
-    public boolean ajouterService(ServiceMedical service) {
-        if (services.size() < nombreMaxServices) {
-            services.add(service);
-            return true;
-        } else {
-            System.out.println("Nombre maximum de services atteint !");
-            return false;
+    public void ajouterService(ServiceMedical service) {
+        for (ServiceMedical s : services) {
+            if (s.getNom().equals(service.getNom())) {
+                System.out.println("Service déjà existant : " + service.getNom());
+                return; // Évite d'ajouter un doublon
+            }
         }
+        services.add(service);
     }
+
 
     public boolean supprimerService(ServiceMedical service) {
         return services.remove(service);
@@ -58,6 +59,31 @@ public class Hopital {
         return medecins;
     }
 
+    // Méthode pour générer des créatures aléatoires et les ajouter à l'hôpital
+    public static void genererCreaturesParDefaut(Hopital hopital) {
+        Random random = new Random();
+        // Initialiser le service médical et l'ajouter à l'hôpital
+        ServiceMedical serviceMedical = new ServiceMedical("Service Général");
+        hopital.ajouterService(serviceMedical);
+
+        // Liste des types de créatures disponibles
+        List<String> typesCreatures = List.of(
+            "elfe", "nain", "orque", "vampire", "zombie", "hommebete", "lycanthrope", "reptilien"
+        );
+
+        // Générer 2 créatures aléatoires
+        for (int i = 0; i < 2; i++) {
+            String typeAleatoire = typesCreatures.get(random.nextInt(typesCreatures.size()));
+            try {
+                // Utiliser la méthode `creerCreature` pour créer une créature en fonction du type
+                Creature creature = CreationCreature.creerCreature(typeAleatoire);
+                serviceMedical.ajouterCreature(creature);
+            } catch (IllegalArgumentException e) {
+                System.err.println("Erreur lors de la création de la créature : " + e.getMessage());
+            }
+        }
+    }
+    
     public void afficherNombreDeCreatures() {
         int total = 0;
         for (ServiceMedical service : services) {

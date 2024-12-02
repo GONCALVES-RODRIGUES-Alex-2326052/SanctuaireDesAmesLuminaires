@@ -2,8 +2,14 @@ package controller;
 
 import model.Creature;
 import model.Elfe;
+import model.HommeBete;
 import model.Maladie;
 import model.Nain;
+import model.Orque;
+import model.Reptilien;
+import model.Triage;
+import model.Vampire;
+import model.Zombie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +24,7 @@ public class CreationCreature {
                 return creerElfe();
             case "nain":
                 return creerNain();
-            /*case "orque":
+            case "orque":
                 return creerOrque();
             case "vampire":
                 return creerVampire();
@@ -26,10 +32,10 @@ public class CreationCreature {
                 return creerZombie();
             case "hommebete":
                 return creerHommeBete();
-            case "lycanthrope":
-                return creerLycanthrope();
+//            case "lycanthrope":
+//                return creerLycanthrope();
             case "reptilien":
-                return creerReptilien();*/
+                return creerReptilien();
             default:
                 throw new IllegalArgumentException("Type de créature inconnu : " + type);
         }
@@ -90,5 +96,62 @@ public class CreationCreature {
         return new Nain(nom,sexe,poids,taille,age,moral, maladies);
     }
 
+    private static Orque creerOrque() {
+    	String nom = genererNom();
+        String sexe = genererSexe();
+        double poids = genererValeurAleatoire(60,200);
+        double taille = genererValeurAleatoire(1.3,1.6);
+        int age = genererValeurAleatoire(70,350);
+        int moral = genererValeurAleatoire(60,100);
+        List<Maladie> maladies = new ArrayList<>();
+        return new Orque(nom,sexe,poids,taille,age,moral, maladies);
+    }
     
+    private static Vampire creerVampire() {
+    	String nom = genererNom();
+        String sexe = genererSexe();
+        double poids = genererValeurAleatoire(60,200);
+        double taille = genererValeurAleatoire(1.3,1.6);
+        int age = genererValeurAleatoire(70,350);
+        int moral = genererValeurAleatoire(60,100);
+        List<Maladie> maladies = new ArrayList<>();
+        return new Vampire(nom,sexe,poids,taille,age,moral, maladies);
+    }
+    
+    private static Zombie creerZombie() {
+    	String nom = genererNom();
+        String sexe = genererSexe();
+        double poids = genererValeurAleatoire(60,200);
+        double taille = genererValeurAleatoire(1.3,1.6);
+        int age = genererValeurAleatoire(70,350);
+        int moral = genererValeurAleatoire(60,100);
+        List<Maladie> maladies = new ArrayList<>();
+        return new Zombie(nom,sexe,poids,taille,age,moral, maladies);
+    }
+    
+    private static HommeBete creerHommeBete() {
+    	String nom = genererNom();
+        String sexe = genererSexe();
+        double poids = genererValeurAleatoire(60,200);
+        double taille = genererValeurAleatoire(1.3,1.6);
+        int age = genererValeurAleatoire(70,350);
+        int moral = genererValeurAleatoire(60,100);
+        List<Maladie> maladies = new ArrayList<>();
+        return new HommeBete(nom,sexe,poids,taille,age,moral, maladies);
+    }
+    
+//    private static Lycanthrope creerLycanthrope() {
+//    	
+//    }
+    
+    private static Reptilien creerReptilien() {
+    	String nom = genererNom();
+        String sexe = genererSexe();
+        double poids = genererValeurAleatoire(60,200);
+        double taille = genererValeurAleatoire(1.3,1.6);
+        int age = genererValeurAleatoire(70,350);
+        int moral = genererValeurAleatoire(60,100);
+        List<Maladie> maladies = new ArrayList<>();
+        return new Reptilien(nom,sexe,poids,taille,age,moral, maladies);
+    }
 }

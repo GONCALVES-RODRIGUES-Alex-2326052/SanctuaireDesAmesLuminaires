@@ -12,7 +12,7 @@ public abstract class Creature {
     private int moral;
     private int etat;  // Nouvel attribut pour l'état de la créature
     private List<Maladie> maladies;
-    private Random random;
+    private Random random = new Random();
 
     // Constructeur de la classe Creature
     public Creature(String nom, String sexe, double poids, double taille, int age, int moral) {
@@ -110,12 +110,15 @@ public abstract class Creature {
     }
     
     // Methode pour s'emporter 
-    public String emporter() {
-    	if (random.nextBoolean()) {
-    		contaminer();
-    		return getNom() + " a contaminer une autres créature en s'emportant apres multiples hurlement !";
-    	}
-    	else return getNom() + " s'est emporter a cause de hurlement consecutive !";
+    public String emporter(List<Creature> autresCreatures) {
+        if (random.nextBoolean() && !autresCreatures.isEmpty()) {
+            Creature victime = autresCreatures.get(random.nextInt(autresCreatures.size()));
+            Maladie maladie = contaminer();
+            victime.tomberMalade(maladie);
+            return getNom() + " a contaminé " + victime.getNom() + " avec " + maladie.getNom() + "!";
+        } else {
+            return getNom() + " s'est emporté sans conséquences.";
+        }
     }
     
     // Methode pour tomber malade

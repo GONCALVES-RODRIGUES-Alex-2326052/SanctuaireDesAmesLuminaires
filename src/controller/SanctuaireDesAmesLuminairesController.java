@@ -35,7 +35,6 @@ public class SanctuaireDesAmesLuminairesController {
     }
 
     private void afficherEtatHopital() {
-        view.afficherMessage("État de l'hôpital:");
         hopital.afficherEtat();
     }
 
@@ -65,5 +64,21 @@ public class SanctuaireDesAmesLuminairesController {
     private void afficherCreatures() {
     	System.out.println("Liste des créatures présentes dans l'hôpital :");
         hopital.afficherCaracteristiques();
+    }
+
+    private void passerAuJourSuivant() {
+        jourActuel++;
+        hopital.getServices().forEach(service -> {
+            service.modifierEtatAleatoireDesCreatures();
+            service.verifierEtDeclencherCrise();
+        });
+        view.afficherMessage("Le jour " + jourActuel + " commence avec de nouveaux défis !");
+    }
+    
+    private void afficherRapportDuService() {
+        view.afficherMessage("\n---- Rapport du service médical ----");
+        for (ServiceMedical service : hopital.getServices()) {
+            service.afficherRapport();
+        }
     }
 }

@@ -9,7 +9,8 @@ public class Medecin {
     private String specialite; // Spécialité du médecin (ex. : "Chirurgie", "Virologie", etc.)
     private int experience; // Nombre d'années d'expérience
     private List<Creature> patients; // Liste des créatures prises en charge
-
+    private Random random;
+    
     // --- Constructeur ---
     public Medecin(String nom, String specialite, int experience) {
         this.nom = nom;
@@ -35,13 +36,14 @@ public class Medecin {
      * @param creature La créature à soigner.
      */
     public void soigner(Creature creature) {
-        Random random = new Random();
-        if (patients.contains(creature)) {
-            System.out.println(nom + " soigne la créature " + creature.getNom() + "...");
-            creature.etreSoignee(random.nextInt(11)*experience); 
-        } else {
-            System.out.println("La créature " + creature.getNom() + " n'est pas prise en charge par " + nom);
+        if (!patients.contains(creature)) {
+            System.out.println("Cette créature n'est pas sous la responsabilité de ce médecin.");
+            return;
         }
+
+        int soin = random.nextInt(11) + (experience * 5);
+        System.out.println("Soins apportés : " + soin);
+        creature.ameliorerEtat(soin);
     }
 
     // --- Méthodes d'affichage ---
@@ -59,10 +61,12 @@ public class Medecin {
     /**
      * Affiche la liste des patients pris en charge.
      */
-    public void afficherPatients() {
-        System.out.println("Patients pris en charge par " + nom + " :");
-        for (Creature patient : patients) {
-            System.out.println("- " + patient.getNom() + " (État : " + patient.getEtat() + ")");
+    public void ajouterPatient(Creature creature) {
+        if (patients.size() < 5) {
+            patients.add(creature);
+            System.out.println(creature.getNom() + " a été ajouté aux patients de " + nom + ".");
+        } else {
+            System.out.println("Le médecin " + nom + " ne peut plus accepter de patients.");
         }
     }
 

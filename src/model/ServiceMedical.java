@@ -10,7 +10,7 @@ public class ServiceMedical {
     private List<Creature> creatures;
     private Random rand;
 
-    public ServiceMedical() {
+    public ServiceMedical(String nom) {
         this.nom = nom;
         this.medecins = new ArrayList<>();
         this.creatures = new ArrayList<>();
@@ -88,5 +88,48 @@ public class ServiceMedical {
         System.out.println("Service : " + nom);
         System.out.println("Nombre de créatures : " + creatures.size());
         System.out.println("Nombre de médecins : " + medecins.size());
+    }
+    
+    private Medecin trouverMedecinDisponible() {
+        for (Medecin medecin : medecins) {
+            if (medecin.estDisponible(5)) {
+                return medecin;
+            }
+        }
+        return null;
+    }
+    
+    public void afficherEtTraiterPatientsParPriorite() {
+        verifierEtDeclencherCrise();
+
+        creatures.sort((c1, c2) -> Integer.compare(c1.getEtat(), c2.getEtat()));
+        afficherCreatures();
+
+        if (!creatures.isEmpty()) {
+            Scanner scanner = new Scanner(System.in);
+            int choix = scanner.nextInt();
+
+            if (choix > 0 && choix <= creatures.size()) {
+                Creature creatureChoisie = creatures.get(choix - 1);
+                Medecin medecinDisponible = trouverMedecinDisponible();
+
+                if (medecinDisponible != null) {
+                    if (enCrise) {
+                        creatureChoisie.diminuerEtat(5);
+                        System.out.println("Service en crise, soins limités.");
+                    }
+                    medecinDisponible.soigner(creatureChoisie);
+                }
+            }
+        }
+    }
+    
+    public void afficherRapport() {
+        System.out.println("\n📋 Rapport du service " + nom + " :");
+        System.out.println("Nombre de créatures prises en charge : " + creatures.size());
+        System.out.println("Nombre de médecins disponibles : " + medecins.size());
+        System.out.println("En crise : " + (enCrise ? "Oui" : "Non"));
+        afficherCreatures();
+        afficherMedecins();
     }
 }
