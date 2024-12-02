@@ -2,11 +2,9 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class ClientVIP {
 	private List<Creature> clientsPrio;
-	Random random;
 	
 	// Contructeur
 	public ClientVIP() {
@@ -21,7 +19,6 @@ public class ClientVIP {
 	// Methode d'attente
 	public void attendre(int dureeAttente) {
 		int seuilAttente = 10;
-		random = new Random();
 		
 		if (dureeAttente > seuilAttente) {
 			for (Creature creature : clientsPrio) {

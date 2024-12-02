@@ -4,6 +4,7 @@ import model.Creature;
 import model.Elfe;
 import model.Maladie;
 import model.Nain;
+import model.Triage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Random;
 
 public class CreationCreature {
     private static final Random rand = new Random();
+    private Triage triage;
 
     public static Creature creerCreature(String type){
         switch (type.toLowerCase()) {
