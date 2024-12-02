@@ -65,38 +65,6 @@ public abstract class Creature {
         System.out.println("État : " + etat + "/100");  // Affichage de l'état
     }
 
-    // Getters et Setters
-    public String getNom() {
-        return nom;
-    }
-
-    public String getSexe() {
-        return sexe;
-    }
-
-    public double getPoids() {
-        return poids;
-    }
-
-    public double getTaille() {
-        return taille;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public int getMoral() {
-        return moral;
-    }
-
-    public int getEtat() {
-        return etat;
-    }
-
-    public List<Maladie> getMaladies() {
-        return maladies;
-    }
     
     // Methode pour l'attente
     public String attendre() {
@@ -137,9 +105,40 @@ public abstract class Creature {
     
 
 	 // Methode pour contaminer les autres Créature
-		public Maladie contaminer() {
-			random = new Random();
-			return maladies.get(random.nextInt(maladies.size()));
-		}
+	public Maladie contaminer() {
+		random = new Random();
+		return maladies.get(random.nextInt(maladies.size()));
+	}
+	// Getters et Setters
+    public String getNom() {
+        return nom;
+    }
 
+    public String getSexe() {
+        return sexe;
+    }
+
+    public double getPoids() {
+        return poids;
+    }
+
+    public double getTaille() {
+        return taille;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public int getMoral() {
+        return moral;
+    }
+
+    public int getEtat() {
+        return etat;
+    }
+
+    public List<Maladie> getMaladies() {
+        return maladies;
+    }
 }

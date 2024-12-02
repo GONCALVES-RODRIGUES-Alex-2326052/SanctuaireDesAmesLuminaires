@@ -43,6 +43,10 @@ public class Medecin {
             System.out.println("La créature " + creature.getNom() + " n'est pas prise en charge par " + nom);
         }
     }
+    
+    public boolean estDisponible(int limitePatients) {
+        return patients.size() < limitePatients;
+    }
 
     // --- Méthodes d'affichage ---
 
