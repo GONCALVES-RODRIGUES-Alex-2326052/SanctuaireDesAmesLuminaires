@@ -53,18 +53,6 @@ public abstract class Creature {
         if (this.moral > 100)
             this.moral = 100;
     }
-
-    // Méthode pour afficher les caractéristiques de la créature
-    public void afficherCaracteristiques() {
-        System.out.println("Nom : " + nom);
-        System.out.println("Sexe : " + sexe);
-        System.out.println("Poids : " + poids + " kg");
-        System.out.println("Taille : " + taille + " m");
-        System.out.println("Âge : " + age + " ans");
-        System.out.println("Moral : " + moral + "/100");
-        System.out.println("État : " + etat + "/100");  // Affichage de l'état
-    }
-
     
     // Methode pour l'attente
     public String attendre() {

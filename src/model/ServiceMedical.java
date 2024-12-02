@@ -12,7 +12,7 @@ public class ServiceMedical {
     private Random rand;
     private boolean enCrise = false;
 
-    public ServiceMedical() {
+    public ServiceMedical(String nom) {
         this.nom = nom;
         this.medecins = new ArrayList<>();
         this.creatures = new ArrayList<>();

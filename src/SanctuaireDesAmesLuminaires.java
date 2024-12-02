@@ -16,7 +16,7 @@ public class SanctuaireDesAmesLuminaires {
         Hopital hopital = new Hopital("Sanctuaire des Âmes Luminaires", 10);
         ConsoleView view = new ConsoleView();
         
-        ServiceMedical serviceMedical = new ServiceMedical();
+        ServiceMedical serviceMedical = new ServiceMedical("Oui");
         hopital.ajouterService(serviceMedical);
         hopital.genererCreaturesParDefaut(hopital);  
         hopital.genererMedecinsParDefaut();

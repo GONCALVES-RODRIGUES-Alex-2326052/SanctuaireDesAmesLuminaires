@@ -32,11 +32,4 @@ public class Nain extends Creature {
             System.out.println(getNom() + " n'a pas de maladies.");
         }
     }
-
-    // Méthode pour afficher les caractéristiques du Nain
-    @Override
-    public void afficherCaracteristiques() {
-        super.afficherCaracteristiques();  // Appel de la méthode de Creature
-        afficherMaladies();  // Affiche les maladies du Nain
-    }
 }

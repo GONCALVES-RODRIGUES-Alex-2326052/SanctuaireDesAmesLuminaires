@@ -36,11 +36,4 @@ public class Orque extends Creature {
             System.out.println(getNom() + " n'a pas de maladies.");
         }
     }
-
-    // Méthode pour afficher les caractéristiques de l'Orque
-    @Override
-    public void afficherCaracteristiques() {
-        super.afficherCaracteristiques();  // Appel de la méthode de Creature
-        afficherMaladies();  // Affiche les maladies de l'Orque
-    }
 }
