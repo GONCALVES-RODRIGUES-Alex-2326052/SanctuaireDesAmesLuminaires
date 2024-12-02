@@ -8,6 +8,7 @@ public class SanctuaireDesAmesLuminairesController {
     private final Hopital hopital;
     private final ConsoleView view;
     private final MedecinController medecinController;
+    private int jourActuel = 1;
 
     public SanctuaireDesAmesLuminairesController(Hopital hopital, ConsoleView view) {
         this.hopital = hopital;
@@ -18,22 +19,31 @@ public class SanctuaireDesAmesLuminairesController {
     public void demarrer() {
         boolean continuer = true;
         while (continuer) {
-            view.afficherMessage("1. Afficher l'état de l'hôpital");
-            view.afficherMessage("2. Gérer un service");
-            view.afficherMessage("3. Afficher les créatures");
-            view.afficherMessage("4. Quitter");
+        	afficherMenuPrincipal();
 
-            int choix = view.demanderChoix("Sélectionnez une option :", 1, 4);
+            int choix = view.demanderChoix("Sélectionnez une option :", 1, 6);
 
             switch (choix) {
                 case 1 -> afficherEtatHopital();
                 case 2 -> gererService();
-                case 3 -> afficherCreatures();  // Nouvelle option
-                case 4 -> continuer = false;
+                case 3 -> afficherCreatures();
+                case 4 -> afficherRapportDuService();
+                case 5 -> passerAuJourSuivant();
+                case 6 -> continuer = false;
             }
         }
     }
-
+    
+    private void afficherMenuPrincipal() {
+        view.afficherMessage("\n---- Jour " + jourActuel + " ----");
+        view.afficherMessage("1. Afficher l'état de l'hôpital");
+        view.afficherMessage("2. Gérer un service");
+        view.afficherMessage("3. Afficher les créatures");
+        view.afficherMessage("4. Afficher un rapport du service médical");
+        view.afficherMessage("5. Passer au jour suivant");
+        view.afficherMessage("6. Quitter");
+    }
+    
     private void afficherEtatHopital() {
         view.afficherMessage("État de l'hôpital:");
         hopital.afficherEtat();
@@ -41,29 +51,58 @@ public class SanctuaireDesAmesLuminairesController {
 
     private void gererService() {
         List<ServiceMedical> services = hopital.getServices();
+        if (services.isEmpty()) {
+            view.afficherMessage("Aucun service médical disponible.");
+            return;
+        }
         int index = view.demanderChoix("Choisissez un service à gérer:", 1, services.size()) - 1;
         ServiceMedical service = services.get(index);
 
         view.afficherMessage("1. Soigner les créatures");
         view.afficherMessage("2. Afficher les créatures");
         view.afficherMessage("3. Afficher les informations des médecins");
+        view.afficherMessage("4. Traiter les créatures prioritaires");
 
-        int choix = view.demanderChoix("Sélectionnez une action :", 1, 3);
+        int choix = view.demanderChoix("Sélectionnez une action :", 1, 4);
 
         switch (choix) {
             case 1 -> medecinController.soigner(service);
             case 2 -> service.afficherService();
-            case 3 -> {
-                // Afficher les informations des médecins
-                List<Medecin> medecins = service.getMedecins();
-                int medecinIndex = view.demanderChoix("Choisissez un médecin pour afficher ses infos :", 1, medecins.size()) - 1;
-                Medecin medecin = medecins.get(medecinIndex);
-                medecinController.afficherInfoMedecin(medecin);
-            }
+            case 3 -> afficherMedecins(service);
+            case 4 -> service.afficherEtTraiterPatientsParPriorite();
         }
     }
+    
+    private void afficherMedecins(ServiceMedical service) {
+        List<Medecin> medecins = service.getMedecins();
+        if (medecins.isEmpty()) {
+            view.afficherMessage("Aucun médecin disponible dans ce service.");
+            return;
+        }
+
+        int medecinIndex = view.demanderChoix("Choisissez un médecin pour afficher ses infos :", 1, medecins.size()) - 1;
+        Medecin medecin = medecins.get(medecinIndex);
+        medecinController.afficherInfoMedecin(medecin);
+    }
+    
     private void afficherCreatures() {
     	System.out.println("Liste des créatures présentes dans l'hôpital :");
         hopital.afficherCaracteristiques();
+    }
+    
+    private void passerAuJourSuivant() {
+        jourActuel++;
+        for (ServiceMedical service : hopital.getServices()) {
+            service.modifierEtatAleatoireDesCreatures();
+            service.verifierEtDeclencherCrise();
+        }
+        view.afficherMessage("Le jour " + jourActuel + " commence.");
+    }
+    
+    private void afficherRapportDuService() {
+        view.afficherMessage("\n---- Rapport du service médical ----");
+        for (ServiceMedical service : hopital.getServices()) {
+            service.afficherRapport();
+        }
     }
 }
