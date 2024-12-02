@@ -46,11 +46,4 @@ public class Zombie extends Creature {
 	    	Random random = new Random();
 	    	return random.nextInt(21);
 	    }
-	    
-	    // Methode retournant l'espece de notre créature
-	    @Override
-	    public String getEspece() {
-	    	return "Zombie";
-	    }
-
 }

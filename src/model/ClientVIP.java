@@ -18,6 +18,7 @@ public class ClientVIP {
 		clientsPrio.add(creature);
 	}
 	
+	// Methode d'attente
 	public void attendre(int dureeAttente) {
 		int seuilAttente = 10;
 		random = new Random();
@@ -25,7 +26,7 @@ public class ClientVIP {
 		if (dureeAttente > seuilAttente) {
 			for (Creature creature : clientsPrio) {
 				System.out.println(creature.getNom() + " est affecter par une longue attente.");
-				creature.diminuerMoral(random.nextInt(10, 21));
+				creature.diminuerMoral(50);
 			}
 		} else for (Creature creature : clientsPrio) System.out.println(creature.getNom() + " est satisfait de l'attente raisonnable"); 
 	}

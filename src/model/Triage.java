@@ -28,7 +28,7 @@ public class Triage {
 		String espece;
 		// Compter les créatures par especes
 		for (Creature creature: habitantTriage) {
-			espece = creature.getEspece();
+			espece = creature.getClass().getSimpleName();
 			creatureParEspece.putIfAbsent(espece, new ArrayList<>());
 			creatureParEspece.get(espece).add(creature);
 		}

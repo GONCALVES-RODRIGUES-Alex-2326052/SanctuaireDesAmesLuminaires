@@ -43,10 +43,4 @@ public class Orque extends Creature {
         super.afficherCaracteristiques();  // Appel de la méthode de Creature
         afficherMaladies();  // Affiche les maladies de l'Orque
     }
-    
- // Methode retournant l'espece de notre créature
-    @Override
-    public String getEspece() {
-    	return "Orque";
-    }
 }

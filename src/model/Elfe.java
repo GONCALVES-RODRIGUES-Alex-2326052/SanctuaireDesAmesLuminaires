@@ -46,10 +46,4 @@ public class Elfe extends Creature {
         super.afficherCaracteristiques();  // Appel de la méthode de Creature
         afficherMaladies();  // Affiche les maladies de l'Elfe
     }
-    
- // Methode retournant l'espece de notre créature
-    @Override
-    public String getEspece() {
-    	return "Elfe";
-    }
 }

@@ -98,10 +98,6 @@ public abstract class Creature {
         return maladies;
     }
     
-    // Methode permettant de recuperer l'espece de la créature
-    public abstract String getEspece();
-
-    
     // Methode pour l'attente
     public String attendre() {
     	diminuerMoral(random.nextInt(5));

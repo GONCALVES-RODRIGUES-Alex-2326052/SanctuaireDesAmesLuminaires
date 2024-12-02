@@ -39,10 +39,4 @@ public class Nain extends Creature {
         super.afficherCaracteristiques();  // Appel de la méthode de Creature
         afficherMaladies();  // Affiche les maladies du Nain
     }
-    
- // Methode retournant l'espece de notre créature
-    @Override
-    public String getEspece() {
-    	return "Nain";
-    }
 }
