@@ -39,6 +39,16 @@ public class Hopital {
         return null;
     }
 
+    private boolean partiePerdue = false;
+
+    public boolean isPartiePerdue() {
+        return partiePerdue;
+    }
+
+    public void setPartiePerdue(boolean partiePerdue) {
+        this.partiePerdue = partiePerdue;
+    }
+
     // Si un nom est fourni, crée un nouveau service et l'ajoute
     public ServiceMedical ajouterService(String nom) {
         return ajouterService(new ServiceMedical(nom));
@@ -88,35 +98,47 @@ public class Hopital {
     public List<Medecin> getMedecins() {
         return medecins;
     }
-
-    // Méthode pour générer des créatures aléatoires et les ajouter à l'hôpital
-    public void genererCreaturesParDefaut() {
+    
+    public void genererCreaturesAleatoires(int nombreCreatures) {
         Random random = new Random();
-
-        // Vérifier s'il existe déjà un service ou en créer un nouveau
         ServiceMedical serviceMedical = services.isEmpty() ? new ServiceMedical("Service Général") : services.get(0);
 
         // Ajouter des créatures
         List<String> typesCreatures = List.of(
             "elfe", "nain", "orque", "vampire", "zombie", "hommebete", "lycanthrope", "reptilien"
         );
-
-        for (int i = 0; i < 2; i++) {
-            String typeAleatoire = typesCreatures.get(random.nextInt(typesCreatures.size()));
+        for (int i = 0; i < nombreCreatures; i++) {
+        	String typeAleatoire = typesCreatures.get(random.nextInt(typesCreatures.size()));
+        	boolean ajoute = false;
             try {
                 Creature creature = CreationCreature.creerCreature(typeAleatoire);
-                serviceMedical.ajouterCreature(creature);
+                for (ServiceMedical service : services) {
+                    if (service.ajouterCreatureSiPossible(creature)) {
+                        ajoute = true;
+                        break;
+                    }
+                }
+                
+             // Si aucun service existant ne convient, créer un nouveau service si possible
+                if (!ajoute) {
+                    if (services.size() < nombreMaxServices) {
+                        ServiceMedical nouveauService = new ServiceMedical("Service " + typeAleatoire);
+                        nouveauService.ajouterCreature(creature);
+                        ajouterService(nouveauService);
+                        ajoute = true;
+                    }
+                }
+                if (!ajoute) {
+                    System.out.println("L'hôpital est plein, impossible d'accueillir une nouvelle créature !");
+                    this.setPartiePerdue(true); // Déclare la partie comme perdue
+                    break;
+                }
             } catch (IllegalArgumentException e) {
                 System.err.println("Erreur lors de la création de la créature : " + e.getMessage());
             }
         }
-
-        // Ajouter le service à l'hôpital s'il n'existait pas déjà
-        if (!services.contains(serviceMedical)) {
-            ajouterService(serviceMedical);
-        }
     }
-    
+
     public void afficherNombreDeCreatures() {
         int total = 0;
         for (ServiceMedical service : services) {

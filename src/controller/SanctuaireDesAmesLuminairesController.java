@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import view.ConsoleView;
 import java.util.List;
+import java.util.Random;
 
 public class SanctuaireDesAmesLuminairesController {
     private final Hopital hopital;
@@ -45,7 +46,6 @@ public class SanctuaireDesAmesLuminairesController {
     }
     
     private void afficherEtatHopital() {
-        view.afficherMessage("État de l'hôpital:");
         hopital.afficherEtat();
     }
 
@@ -95,6 +95,18 @@ public class SanctuaireDesAmesLuminairesController {
         for (ServiceMedical service : hopital.getServices()) {
             service.modifierEtatAleatoireDesCreatures();
             service.verifierEtDeclencherCrise();
+        }
+        if (jourActuel == 4) {
+            int nombreNouvellesCreatures = 1 + new Random().nextInt(5); // 1 à 5 créatures
+            hopital.genererCreaturesAleatoires(nombreNouvellesCreatures);
+        } else if (jourActuel % 2 == 0) {
+            hopital.genererCreaturesAleatoires(1); // Une nouvelle créature tous les 2 jours
+        }
+
+        // Vérifie si la partie est perdue
+        if (hopital.isPartiePerdue()) {
+            view.afficherMessage("L'hôpital est plein ! Vous avez perdu.");
+            System.exit(0); // Arrête l'exécution
         }
         view.afficherMessage("Le jour " + jourActuel + " commence.");
     }

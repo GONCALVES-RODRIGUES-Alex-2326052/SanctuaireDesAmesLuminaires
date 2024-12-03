@@ -22,6 +22,16 @@ public class ServiceMedical {
     public void ajouterCreature(Creature creature) {
         creatures.add(creature);
     }
+    
+    public boolean ajouterCreatureSiPossible(Creature creature) {
+        int nombreMaxCreatures = 30;
+		if (creatures.size() < nombreMaxCreatures) {
+            creatures.add(creature);
+            return true;
+        }
+        return false;
+    }
+
 
     public void retirerCreature(Creature creature) {
         creatures.remove(creature);
