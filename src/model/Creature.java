@@ -16,13 +16,14 @@ public abstract class Creature {
 
     // Constructeur de la classe Creature
     public Creature(String nom, String sexe, double poids, double taille, int age, int moral) {
+    	this.random = new Random();
         this.nom = nom;
         this.sexe = sexe;
         this.poids = poids;
         this.taille = taille;
         this.age = age;
         this.moral = moral;
-        this.etat = 100;  // Par défaut, l'état est à 100 (parfaitement en bonne santé)
+        this.etat = random.nextInt(30)+60;
     }
 
  // Méthode pour améliorer l'état de la créature
@@ -120,6 +121,10 @@ public abstract class Creature {
 
     public int getMoral() {
         return moral;
+    }
+    
+    public void setEtat(int etat) {
+        this.etat = etat;
     }
 
     public int getEtat() {

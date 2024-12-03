@@ -32,9 +32,19 @@ public class ServiceMedical {
         return false;
     }
 
+    public void verifierEtSupprimerCreatures() {
+        List<Creature> aSupprimer = new ArrayList<>();
 
-    public void retirerCreature(Creature creature) {
-        creatures.remove(creature);
+        for (Creature creature : creatures) {
+            if (creature.getEtat() >= 100) {
+                aSupprimer.add(creature); 
+            }
+        }
+
+        for (Creature creature : aSupprimer) {
+            System.out.println("Suppression de la créature : " + creature.getNom() + " car son état est à 100.");
+            creatures.remove(creature);
+        }
     }
 
     public void afficherCreatures() {

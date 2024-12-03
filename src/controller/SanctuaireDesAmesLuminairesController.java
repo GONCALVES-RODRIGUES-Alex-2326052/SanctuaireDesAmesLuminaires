@@ -10,6 +10,7 @@ public class SanctuaireDesAmesLuminairesController {
     private final ConsoleView view;
     private final MedecinController medecinController;
     private int jourActuel = 1;
+    private List<Creature> creatures;
 
     public SanctuaireDesAmesLuminairesController(Hopital hopital, ConsoleView view) {
         this.hopital = hopital;
@@ -55,6 +56,13 @@ public class SanctuaireDesAmesLuminairesController {
             view.afficherMessage("Aucun service médical disponible.");
             return;
         }
+        view.afficherMessage("\nListe des services disponibles :");
+        for (int i = 0; i < services.size(); i++) {
+        	ServiceMedical service = services.get(i);
+            view.afficherMessage((i + 1) + ". " + services.get(i).getNom() + " - "
+                + service.getNombreDeCreatures());
+        }
+        
         int index = view.demanderChoix("Choisissez un service à gérer:", 1, services.size()) - 1;
         ServiceMedical service = services.get(index);
 
@@ -95,6 +103,7 @@ public class SanctuaireDesAmesLuminairesController {
         for (ServiceMedical service : hopital.getServices()) {
             service.modifierEtatAleatoireDesCreatures();
             service.verifierEtDeclencherCrise();
+            service.verifierEtSupprimerCreatures();
         }
         if (jourActuel == 4) {
             int nombreNouvellesCreatures = 1 + new Random().nextInt(5); // 1 à 5 créatures
