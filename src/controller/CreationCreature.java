@@ -7,7 +7,7 @@ import model.Maladie;
 import model.Nain;
 import model.Orque;
 import model.Reptilien;
-import model.Triage;
+//import model.Triage;
 import model.Vampire;
 import model.Zombie;
 
@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class CreationCreature {
     private static final Random rand = new Random();
-    private Triage triage;
+    //private Triage triage;
 
     public static Creature creerCreature(String type){
         switch (type.toLowerCase()) {

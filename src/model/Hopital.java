@@ -20,19 +20,28 @@ public class Hopital {
         this.medecins = new ArrayList<>();
     }
 
-    public boolean ajouterService(ServiceMedical service) {
-    	if (!services.contains(service)) {
+    public ServiceMedical ajouterService(ServiceMedical service) {
+        if (service == null) {
+            System.out.println("Le service passé est nul.");
+            return null;
+        }
+
+        if (!services.contains(service)) {
             if (services.size() < nombreMaxServices) {
                 services.add(service);
-                return true;
+                return service;
             } else {
                 System.out.println("Nombre maximum de services atteint !");
-                return false;
             }
         } else {
             System.out.println("Service déjà ajouté.");
-            return false;
         }
+        return null;
+    }
+
+    // Si un nom est fourni, crée un nouveau service et l'ajoute
+    public ServiceMedical ajouterService(String nom) {
+        return ajouterService(new ServiceMedical(nom));
     }
 
     public boolean supprimerService(ServiceMedical service) {
@@ -81,12 +90,13 @@ public class Hopital {
     }
 
     // Méthode pour générer des créatures aléatoires et les ajouter à l'hôpital
-    public static void genererCreaturesParDefaut(Hopital hopital) {
+    public void genererCreaturesParDefaut() {
         Random random = new Random();
 
-        ServiceMedical serviceMedical = new ServiceMedical("Service Général");
-        hopital.ajouterService(serviceMedical);
+        // Vérifier s'il existe déjà un service ou en créer un nouveau
+        ServiceMedical serviceMedical = services.isEmpty() ? new ServiceMedical("Service Général") : services.get(0);
 
+        // Ajouter des créatures
         List<String> typesCreatures = List.of(
             "elfe", "nain", "orque", "vampire", "zombie", "hommebete", "lycanthrope", "reptilien"
         );
@@ -99,6 +109,11 @@ public class Hopital {
             } catch (IllegalArgumentException e) {
                 System.err.println("Erreur lors de la création de la créature : " + e.getMessage());
             }
+        }
+
+        // Ajouter le service à l'hôpital s'il n'existait pas déjà
+        if (!services.contains(serviceMedical)) {
+            ajouterService(serviceMedical);
         }
     }
     
