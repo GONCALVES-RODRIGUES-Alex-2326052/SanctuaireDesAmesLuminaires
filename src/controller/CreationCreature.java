@@ -2,40 +2,41 @@ package controller;
 
 import model.Creature;
 import model.Elfe;
-import model.LoupGarous;
+import model.HommeBete;
 import model.Maladie;
 import model.Nain;
-import model.Meute;
+import model.Orque;
+import model.Reptilien;
+//import model.Triage;
+import model.Vampire;
+import model.Zombie;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.xml.catalog.Catalog;
-
-public class CreationCreature {	
+public class CreationCreature {
     private static final Random rand = new Random();
-	private Creature creature;
-    private static Meute meute;
+    //private Triage triage;
 
     public static Creature creerCreature(String type){
         switch (type.toLowerCase()) {
-//            case "elfe":
-//                return creerElfe();
-//            case "nain":
-//                return creerNain();
-            /*case "orque":
+            case "elfe":
+                return creerElfe();
+            case "nain":
+                return creerNain();
+            case "orque":
                 return creerOrque();
             case "vampire":
                 return creerVampire();
             case "zombie":
                 return creerZombie();
             case "hommebete":
-                return creerHommeBete();*/
-            case "lycanthrope":
-                return creerLycanthrope();/*
+                return creerHommeBete();
+//            case "lycanthrope":
+//                return creerLycanthrope();
             case "reptilien":
-                return creerReptilien();*/
+                return creerReptilien();
             default:
                 throw new IllegalArgumentException("Type de créature inconnu : " + type);
         }
@@ -60,75 +61,94 @@ public class CreationCreature {
         String nom = noms[rand.nextInt(noms.length)];
         return nom;
     }
-    
-    private static String genererCategorieAge(int age) {
-        if (age < 50) return "jeune";
-        else if (age < 150) return "adulte";
-        else return "vieux";
-    }
-    
-    public static String genererNomMeute() {
-        String[] meutes = {"Lune Sanglante", "Griffe d'Argent", "Ombres Sauvages"};
-        return meutes[rand.nextInt(meutes.length)];
-    }
 
     private static String genererSexe() {
         return rand.nextBoolean() ? "Mâle" : "Femelle";
     }
 
+    private static double genererValeurAleatoire(double min, double max) {
+        return min + (max - min) * rand.nextDouble();
+    }
+
     private static int genererValeurAleatoire(int min, int max) {
-        return rand.nextInt(min, max);
+        return min + rand.nextInt(max - min + 1);
     }
-    
-    private static double genererTailleAleatoire(double min, double max) {
-        return (min + (max - min) * rand.nextDouble());
-    }
-    
-    
 
-//    public static Elfe creerElfe(){
-//        String nom = genererNom();
-//        String sexe = genererSexe();
-//        double poids = genererValeurAleatoire(45, 65);
-//        double taille = genererTailleAleatoire(1.5, 1.9);
-//        int age = genererValeurAleatoire(1, 750);
-//        int moral = genererValeurAleatoire(50, 100);
-//        List<Maladie> maladies = new ArrayList<>();  // Liste vide de maladies (tu peux y ajouter des objets Maladie si nécessaire)
-//
-//        return new Elfe(nom, sexe, poids, taille, age, moral, maladies);
-//    }
-
-//    public static Nain creerNain() {
-//        String nom = genererNom();
-//        String sexe = genererSexe();
-//        double poids = genererValeurAleatoire(60,200);
-//        double taille = genererTailleAleatoire(1.3,1.6);
-//        int age = genererValeurAleatoire(1,350);
-//        int moral = genererValeurAleatoire(60,100);
-//        List<Maladie> maladies = new ArrayList<>();
-//        return new Nain(nom,sexe,poids,taille,age,moral, maladies);
-//    }
-    
-    public static LoupGarous creerLycanthrope() {
+    private static Elfe creerElfe(){
         String nom = genererNom();
         String sexe = genererSexe();
-        double poids = rand.nextDouble(70,100);
-        double taille = genererTailleAleatoire(1.6, 1.8);
-        int age = rand.nextInt(1,300);;
-        int moral = rand.nextInt(1,100);
-        String categorieAge = genererCategorieAge(age);
-        int force = rand.nextInt(0,moral);
-        int facteurDomination = rand.nextInt(1,240);
-        int rang = (int)(facteurDomination / 10);
-        double niveau = 0;
-        double facteurImpetuosite = rand.nextInt(rang,facteurDomination);
-        String nomMeute = rand.nextBoolean() ? genererNomMeute() : "Solitaire";
-        boolean humain = moral <= 50;
+        double poids = genererValeurAleatoire(45, 65);
+        double taille = genererValeurAleatoire(1.5, 1.9);
+        int age = genererValeurAleatoire(100, 750);
+        int moral = genererValeurAleatoire(50, 100);
+        List<Maladie> maladies = new ArrayList<>();  // Liste vide de maladies (tu peux y ajouter des objets Maladie si nécessaire)
+
+        return new Elfe(nom, sexe, poids, taille, age, moral, maladies);
+    }
+
+    private static Nain creerNain() {
+        String nom = genererNom();
+        String sexe = genererSexe();
+        double poids = genererValeurAleatoire(60,200);
+        double taille = genererValeurAleatoire(1.3,1.6);
+        int age = genererValeurAleatoire(70,350);
+        int moral = genererValeurAleatoire(60,100);
         List<Maladie> maladies = new ArrayList<>();
-        LoupGarous loup = new LoupGarous(nom, sexe, poids, taille, age, moral, maladies, categorieAge, force, facteurDomination, rang, niveau, facteurImpetuosite, nomMeute, humain);
-        if (meute != null) {
-            meute.ajouterLoup(loup);
-        }
-        return loup;
+        return new Nain(nom,sexe,poids,taille,age,moral, maladies);
+    }
+    
+    private static HommeBete creerHommeBete() {
+    	String nom = genererNom();
+        String sexe = genererSexe();
+        double poids = genererValeurAleatoire(60,200);
+        double taille = genererValeurAleatoire(1.3,1.6);
+        int age = genererValeurAleatoire(70,350);
+        int moral = genererValeurAleatoire(60,100);
+        List<Maladie> maladies = new ArrayList<>();
+        return new HommeBete(nom,sexe,poids,taille,age,moral, maladies);
+    }
+    
+    private static Orque creerOrque() {
+    	String nom = genererNom();
+        String sexe = genererSexe();
+        double poids = genererValeurAleatoire(60,200);
+        double taille = genererValeurAleatoire(1.3,1.6);
+        int age = genererValeurAleatoire(70,350);
+        int moral = genererValeurAleatoire(60,100);
+        List<Maladie> maladies = new ArrayList<>();
+        return new Orque(nom,sexe,poids,taille,age,moral, maladies);
+    }
+    
+    private static Vampire creerVampire() {
+    	String nom = genererNom();
+        String sexe = genererSexe();
+        double poids = genererValeurAleatoire(60,200);
+        double taille = genererValeurAleatoire(1.3,1.6);
+        int age = genererValeurAleatoire(70,350);
+        int moral = genererValeurAleatoire(60,100);
+        List<Maladie> maladies = new ArrayList<>();
+        return new Vampire(nom,sexe,poids,taille,age,moral, maladies);
+    }
+    
+    private static Zombie creerZombie() {
+    	String nom = genererNom();
+        String sexe = genererSexe();
+        double poids = genererValeurAleatoire(60,200);
+        double taille = genererValeurAleatoire(1.3,1.6);
+        int age = genererValeurAleatoire(70,350);
+        int moral = genererValeurAleatoire(60,100);
+        List<Maladie> maladies = new ArrayList<>();
+        return new Zombie(nom,sexe,poids,taille,age,moral, maladies);
+    }
+    
+    private static Reptilien creerReptilien() {
+    	String nom = genererNom();
+        String sexe = genererSexe();
+        double poids = genererValeurAleatoire(60,200);
+        double taille = genererValeurAleatoire(1.3,1.6);
+        int age = genererValeurAleatoire(70,350);
+        int moral = genererValeurAleatoire(60,100);
+        List<Maladie> maladies = new ArrayList<>();
+        return new Reptilien(nom,sexe,poids,taille,age,moral, maladies);
     }
 }

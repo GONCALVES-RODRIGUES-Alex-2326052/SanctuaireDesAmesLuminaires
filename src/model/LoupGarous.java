@@ -52,9 +52,7 @@ public class LoupGarous extends Creature{
      * Affiche les caractéristiques des Loups-Garous.
      */
 	
-	@Override
 	public void afficherCaracteristiques() {
-        super.afficherCaracteristiques();
         System.out.println("Catégorie d'âge : " + categorieAge);
         System.out.println("Force : " + force);
         System.out.println("Facteur de domination : " + facteurDomination);
@@ -67,17 +65,8 @@ public class LoupGarous extends Creature{
     }
 	
 	/**
-	 * @return return le type de la classe.
-	 */
-	@Override
-    public String getType() {
-    	return " Lycanthrope";
-    }
-	
-	/**
 	 * @return maladies
 	 */
-	
 	public List<Maladie> getMaladies() {
         return maladies;
     }
@@ -259,8 +248,6 @@ public class LoupGarous extends Creature{
 	    double niveau = coeffAge * (facteurDomination * 2 + rang * 10 + force) * (1 + facteurImpetuosite);
 	    return Math.round(niveau);
 	}
-
-	
 	/**
 	 * 
 	 * @return l'info si le loup-garou fait partie d'une meute ou pas.
@@ -282,14 +269,6 @@ public class LoupGarous extends Creature{
             System.out.println(getNom() + " n'a pas de maladies.");
         }
     }
-	public void hurler() {
-		if (humain) {
-			System.out.println( getNom() + " ne peut pas pousser à un hurlement !");
-		}
-		else {
-			System.out.println( getNom() + " pousse un puissant hurlement !");
-		}
-	}
 	
 	public void seTransphormer() {
 		if (humain) {

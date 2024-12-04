@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Medecin {
     private String nom;
@@ -34,12 +35,13 @@ public class Medecin {
      * @param creature La créature à soigner.
      */
     public void soigner(Creature creature) {
-        if (patients.contains(creature)) {
-            System.out.println(nom + " soigne la créature " + creature.getNom() + "...");
-            creature.ameliorerEtat(10 + experience); // Améliore l'état de la créature
-        } else {
-            System.out.println("La créature " + creature.getNom() + " n'est pas prise en charge par " + nom);
-        }
+        Random random = new Random();
+        System.out.println(nom + " soigne la créature " + creature.getNom() + "...");
+        creature.etreSoignee(random.nextInt(11) * experience);
+    }
+    
+    public boolean estDisponible(int limitePatients) {
+        return patients.size() < limitePatients;
     }
 
     // --- Méthodes d'affichage ---
