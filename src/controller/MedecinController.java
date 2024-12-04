@@ -7,38 +7,65 @@ import view.ConsoleView;
 
 import java.util.List;
 
+/**
+ * Le contrôleur de la classe Medecin gère les actions liées aux médecins,
+ * y compris le soin des créatures et l'affichage des informations médicales.
+ */
 public class MedecinController {
+    
+    // Vue pour l'affichage des informations
     private final ConsoleView view;
 
-    // Constructeur
+    /**
+     * Constructeur de MedecinController.
+     * 
+     * @param view La vue utilisée pour interagir avec l'utilisateur.
+     */
     public MedecinController(ConsoleView view) {
         this.view = view;
     }
 
-    // Méthode pour soigner une créature
+    /**
+     * Permet de soigner une créature en choisissant un médecin et une créature
+     * à soigner parmi la liste des patients du médecin sélectionné.
+     * 
+     * @param service Le service médical contenant les médecins disponibles.
+     */
     public void soigner(ServiceMedical service) {
+        // Récupération de la liste des médecins
         List<Medecin> medecins = service.getMedecins();
+        
+        // Demande à l'utilisateur de choisir un médecin
         int index = view.demanderChoix("Choisissez un médecin pour soigner la créature : ", 1, medecins.size()) - 1;
         Medecin medecin = medecins.get(index);
 
-        // Affichage de la liste des créatures prises en charge par ce médecin
+        // Récupération des patients du médecin
         List<Creature> patients = medecin.getPatients();
+        
+        // Vérification si le médecin a des patients à soigner
         if (patients.isEmpty()) {
             view.afficherMessage(medecin.getNom() + " n'a aucun patient à soigner.");
             return;
         }
 
-        // Affichage des créatures à soigner
+        // Demande à l'utilisateur de choisir une créature parmi les patients
         int creatureIndex = view.demanderChoix("Choisissez une créature à soigner : ", 1, patients.size()) - 1;
         Creature creature = patients.get(creatureIndex);
 
-        // Soigner la créature
+        // Soigne la créature choisie par le médecin sélectionné
         medecin.soigner(creature);
     }
 
-    // Méthode pour afficher les informations d'un médecin
+    /**
+     * Affiche les informations détaillées d'un médecin ainsi que la liste de ses patients.
+     * 
+     * @param medecin Le médecin dont les informations doivent être affichées.
+     */
     public void afficherInfoMedecin(Medecin medecin) {
+        // Affichage des caractéristiques du médecin
         medecin.afficherCaracteristiques();
+        
+        // Affichage des créatures prises en charge par ce médecin
         medecin.afficherPatients();
     }
 }

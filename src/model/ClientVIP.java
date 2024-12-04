@@ -20,6 +20,7 @@ public class ClientVIP {
 	 */
 	public void ajouterCreature(Creature creature) {
 		clientsPrio.add(creature);
+		System.out.println(creature.getNom() + " a été ajouter dans les créatures VIP.");
 	}
 	
 	/**
