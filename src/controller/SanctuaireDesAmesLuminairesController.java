@@ -75,7 +75,7 @@ public class SanctuaireDesAmesLuminairesController {
 
         switch (choix) {
             case 1 -> medecinController.soigner(service);
-            case 2 -> service.afficherService();
+            case 2 -> service.afficherCreatures();
             case 3 -> afficherMedecins(service);
             case 4 -> service.afficherEtTraiterPatientsParPriorite();
         }
