@@ -39,6 +39,35 @@ public class Hopital {
         }
         return null;
     }
+    
+    // Pour ajouter une creature au bon service
+    public void ajouterCreatureAuService(Creature creature) {
+        boolean creatureAjoutee = false;
+
+        // Recherche un service compatible pour la créature
+        for (ServiceMedical service : services) {
+            if (service.getTypeAutorise().isInstance(creature) && service.ajouterCreatureSiPossible(creature)) {
+                creatureAjoutee = true;
+                break;
+            }
+        }
+
+        // Si aucun service existant n'est compatible, on crée un nouveau service si possible
+        if (!creatureAjoutee) {
+            if (services.size() < nombreMaxServices) {
+                ServiceMedical nouveauService = new ServiceMedical(
+                    "Service " + creature.getClass().getSimpleName(),
+                    15,
+                    creature.getClass() // Définit le type autorisé dans le nouveau service
+                );
+                nouveauService.ajouterCreatureSiPossible(creature);
+                ajouterService(nouveauService);
+                System.out.println("Nouveau service créé pour " + creature.getClass().getSimpleName());
+            } else {
+                System.out.println("Impossible d'ajouter la créature, l'hôpital est plein !");
+            }
+        }
+    }
 
     private boolean partiePerdue = false;
 
@@ -52,7 +81,7 @@ public class Hopital {
 
     // Si un nom est fourni, crée un nouveau service et l'ajoute
     public ServiceMedical ajouterService(String nom) {
-        return ajouterService(new ServiceMedical(nom));
+        return ajouterService(new ServiceMedical(nom, 15, Creature.class));
     }
 
     public boolean supprimerService(ServiceMedical service) {
@@ -102,16 +131,9 @@ public class Hopital {
     
     public void genererCreaturesAleatoires(int nombreCreatures) {
         Random random = new Random();
-        ServiceMedical serviceMedical = services.isEmpty() ? new ServiceMedical("Service Général", 15) : services.get(0);
 
         List<Meute> meutes = new ArrayList<>();
-        
-        for (int i = 0; i < 3; i++) {
-            Meute meute = new Meute(CreationCreature.genererNomMeute());
-            if (meute.creerMeuteValide(meute)) {
-                meutes.add(meute);
-            }
-        }
+        ServiceMedical serviceMedical = services.isEmpty() ? new ServiceMedical("Service Général", 15) : services.get(0);
         
         List<String> typesCreatures = List.of(
             "elfe", "nain", "orque", "vampire", "zombie", "hommebete", "lycanthrope", "reptilien"
@@ -121,6 +143,7 @@ public class Hopital {
         	boolean ajoute = false;
             try {
                 Creature creature = CreationCreature.creerCreature(typeAleatoire);
+                ServiceMedical serviceCorrespondant = null;
                 
                 if (creature instanceof LoupGarous) {
                     LoupGarous loupGarou = (LoupGarous) creature;
@@ -131,16 +154,26 @@ public class Hopital {
                 }
                 
                 for (ServiceMedical service : services) {
-                    if (service.ajouterCreatureSiPossible(creature)) {
-                        ajoute = true;
-                        break;
-                    }
+                	if (service.getTypeAutorise().isInstance(creature)) {
+	                    if (service.ajouterCreatureSiPossible(creature)) {
+	                        serviceCorrespondant = service;
+	                        break;
+	                    }
+                	}
+                }
+                if (serviceCorrespondant == null) {
+                    serviceCorrespondant = new ServiceMedical("Service pour " + typeAleatoire, 20, creature.getClass());
+                    ajouterService(serviceCorrespondant);
+                }
+                if (serviceCorrespondant.ajouterCreatureSiPossible(creature)) {
+                    System.out.println(creature.getNom() + " a été ajouté au " + serviceCorrespondant.getNom());
+                    ajoute = true;
                 }
                 
              // Si aucun service existant ne convient, créer un nouveau service si possible
                 if (!ajoute) {
                     if (services.size() < nombreMaxServices) {
-                        ServiceMedical nouveauService = new ServiceMedical("Service " + typeAleatoire);
+                        ServiceMedical nouveauService = new ServiceMedical("Service " + typeAleatoire, 15);
                         nouveauService.ajouterCreature(creature);
                         ajouterService(nouveauService);
                         ajoute = true;
@@ -149,16 +182,12 @@ public class Hopital {
                 if (!ajoute) {
                     System.out.println("L'hôpital est plein, impossible d'accueillir une nouvelle créature !");
                     this.setPartiePerdue(true); // Déclare la partie comme perdue
+                    this.setPartiePerdue(true); 
                     break;
                 }
             } catch (IllegalArgumentException e) {
                 System.err.println("Erreur lors de la création de la créature : " + e.getMessage());
             }
-        }
-        
-        for (Meute meute : meutes) {
-            meute.organiserHiérarchie();
-            meute.afficherHiérarchie();
         }
     }
 

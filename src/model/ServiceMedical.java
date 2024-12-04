@@ -29,6 +29,7 @@ public class ServiceMedical {
 
     /** Limite maximale de patients que le service peut gérer efficacement. */
     private int limitePatients;
+    private Class<? extends Creature> typeAutorise;
 
     /**
      * Constructeur principal de la classe ServiceMedical.
@@ -36,12 +37,26 @@ public class ServiceMedical {
      * @param nom            Nom du service médical.
      * @param limitePatients Nombre maximum de patients que le service peut gérer.
      */
-    public ServiceMedical(String nom, int limitePatients) {
+    public ServiceMedical(String nom, int limitePatients, Class<? extends Creature> typeAutorise) {
         this.nom = nom;
         this.medecins = new ArrayList<>();
         this.creatures = new ArrayList<>();
         this.rand = new Random();
-        this.limitePatients = limitePatients;
+        this.limitePatients = 15;
+        this.typeAutorise = typeAutorise;
+    }
+    
+    public ServiceMedical(String nom, int limitePatients) {
+        this(nom, 10, null);
+        this.typeAutorise = Creature.class;
+    }
+    
+    public void ajouterCreature(Creature creature) {
+        creatures.add(creature);
+    }
+    
+    public Class<? extends Creature> getTypeAutorise() {
+        return typeAutorise;
     }
 
     /**
@@ -51,15 +66,6 @@ public class ServiceMedical {
      */
     public ServiceMedical(String nom) {
         this(nom, 10); // Limite par défaut de 10 patients.
-    }
-
-    /**
-     * Ajoute une créature à la liste des créatures du service.
-     * 
-     * @param creature La créature à ajouter.
-     */
-    public void ajouterCreature(Creature creature) {
-        creatures.add(creature);
     }
 
     /**
@@ -73,8 +79,10 @@ public class ServiceMedical {
         if (creatures.size() < nombreMaxCreatures) {
             creatures.add(creature);
             return true;
-        }
-        return false;
+        }else {
+	        System.out.println("Le service est plein !");
+	        return false;
+	    }
     }
 
     /**
