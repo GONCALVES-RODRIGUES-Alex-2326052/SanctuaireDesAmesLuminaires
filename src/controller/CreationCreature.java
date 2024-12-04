@@ -4,12 +4,14 @@ import model.ClientVIP;
 import model.Creature;
 import model.Elfe;
 import model.HommeBete;
+import model.LoupGarous;
 import model.Maladie;
+import model.Meute;
 import model.Nain;
 import model.Orque;
 import model.Reptilien;
 import model.Triage;
-//import model.Triage;
+import model.Triage;
 import model.Vampire;
 import model.Zombie;
 
@@ -19,6 +21,7 @@ import java.util.Random;
 
 public class CreationCreature {
     private static final Random rand = new Random();
+    private static Meute meute;
 
     public static Creature creerCreature(String type){
     	ClientVIP clientVIP = new ClientVIP();
@@ -36,8 +39,8 @@ public class CreationCreature {
                 return creerZombie(triage);
             case "hommebete":
                 return creerHommeBete(triage);
-//            case "lycanthrope":
-//                return creerLycanthrope();
+            case "lycanthrope":
+                return creerLycanthrope();
             case "reptilien":
                 return creerReptilien(clientVIP);
             default:
@@ -76,6 +79,18 @@ public class CreationCreature {
     private static int genererValeurAleatoire(int min, int max) {
         return min + rand.nextInt(max - min + 1);
     }
+    
+    
+    private static String genererCategorieAge(int age) {
+	    if (age < 50) return "jeune";
+	    else if (age < 150) return "adulte";
+	    else return "vieux";
+    }
+    
+    public static String genererNomMeute() {
+        String[] meutes = {"Lune Sanglante", "Griffe d'Argent", "Ombres Sauvages"};
+        return meutes[rand.nextInt(meutes.length)];
+    }
 
     private static Elfe creerElfe(ClientVIP clientVIP){
         String nom = genererNom();
@@ -84,7 +99,7 @@ public class CreationCreature {
         double taille = genererValeurAleatoire(1.5, 1.9);
         int age = genererValeurAleatoire(100, 750);
         int moral = genererValeurAleatoire(50, 100);
-        List<Maladie> maladies = new ArrayList<>();  // Liste vide de maladies (tu peux y ajouter des objets Maladie si nécessaire)
+        List<Maladie> maladies = new ArrayList<>();  
         Elfe elfe = new Elfe(nom, sexe, poids, taille, age, moral, maladies);
         if(clientVIP!=null) clientVIP.ajouterCreature(elfe);
         return elfe;
@@ -167,5 +182,28 @@ public class CreationCreature {
         Reptilien reptilien = new Reptilien(nom,sexe,poids,taille,age,moral, maladies);
         if(clientVIP!=null) clientVIP.ajouterCreature(reptilien);
         return reptilien;
+    }
+    
+    public static LoupGarous creerLycanthrope() {
+        String nom = genererNom();
+        String sexe = genererSexe();
+        double poids = rand.nextDouble(70,100);
+        double taille = genererValeurAleatoire(1.6,1.9);
+        int age = rand.nextInt(1,300);;
+        int moral = rand.nextInt(1,100);
+        String categorieAge = genererCategorieAge(age);
+        int force = rand.nextInt(0,moral);
+        int facteurDomination = rand.nextInt(1,240);
+        int rang = (int)(facteurDomination / 10);
+        double niveau = 0;
+        double facteurImpetuosite = rand.nextInt(rang,facteurDomination);
+        String nomMeute = rand.nextBoolean() ? genererNomMeute() : "Solitaire";
+        boolean humain = moral <= 50;
+        List<Maladie> maladies = new ArrayList<>();
+        LoupGarous loup = new LoupGarous(nom, sexe, poids, taille, age, moral, maladies, categorieAge, force, facteurDomination, rang, niveau, facteurImpetuosite, nomMeute, humain);
+        if (meute != null) {
+            meute.ajouterLoup(loup);
+        }
+        return loup;
     }
 }
