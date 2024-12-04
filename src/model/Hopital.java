@@ -140,6 +140,7 @@ public class Hopital {
                 meutes.add(meute);
             }
         }
+        ServiceMedical serviceMedical = services.isEmpty() ? new ServiceMedical("Service Général", 15) : services.get(0);
         
         List<String> typesCreatures = List.of(
             "elfe", "nain", "orque", "vampire", "zombie", "hommebete", "lycanthrope", "reptilien"
@@ -188,6 +189,7 @@ public class Hopital {
                 if (!ajoute) {
                     System.out.println("L'hôpital est plein, impossible d'accueillir une nouvelle créature !");
                     this.setPartiePerdue(true); // Déclare la partie comme perdue
+                    this.setPartiePerdue(true); 
                     break;
                 }
             } catch (IllegalArgumentException e) {

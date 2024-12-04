@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3d7328a0-2739-4254-a934-793a0d342d05" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/bin/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/bin/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Test/CreatureTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Test/CreatureTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Test/HopitalTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Test/HopitalTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Test/ServiceMedicalTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Test/ServiceMedicalTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/controller/CreationCreature.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/controller/CreationCreature.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/controller/MaladieController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/controller/MaladieController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/controller/MedecinController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/controller/MedecinController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/model/Hopital.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/Hopital.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/model/Maladie.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/Maladie.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/model/Medecin.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/Medecin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/model/Meute.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/Meute.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/model/ServiceMedical.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/ServiceMedical.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/view/ConsoleView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/view/ConsoleView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/CreationCreature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CreationCreature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/MaladieController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MaladieController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/MedecinController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/MedecinController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/ClientVIP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ClientVIP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Hopital.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Hopital.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Maladie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Maladie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Medecin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Medecin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Meute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Meute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/ServiceMedical.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ServiceMedical.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ConsoleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ConsoleView.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\Program Files\php\php.exe" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2plflQVwTqLd1klZ19BXEH1byL7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Merging main",
+    "kotlin-language-version-configured": "true",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3d7328a0-2739-4254-a934-793a0d342d05" name="Changes" comment="" />
+      <created>1733345734661</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733345734661</updated>
+      <workItem from="1733345738077" duration="5000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
