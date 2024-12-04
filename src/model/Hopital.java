@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import model.*;
 
 import controller.CreationCreature;
 import controller.MaladieController;
@@ -103,15 +104,32 @@ public class Hopital {
         Random random = new Random();
         ServiceMedical serviceMedical = services.isEmpty() ? new ServiceMedical("Service Général", 15) : services.get(0);
 
-        // Ajouter des créatures
+        List<Meute> meutes = new ArrayList<>();
+        
+        for (int i = 0; i < 3; i++) {
+            Meute meute = new Meute(CreationCreature.genererNomMeute());
+            if (meute.creerMeuteValide(meute)) {
+                meutes.add(meute);
+            }
+        }
+        
         List<String> typesCreatures = List.of(
             "elfe", "nain", "orque", "vampire", "zombie", "hommebete", "lycanthrope", "reptilien"
         );
-        for (int i = 0; i < nombreCreatures; i++) {
+        for (int i = 0; i < 50; i++) {
         	String typeAleatoire = typesCreatures.get(random.nextInt(typesCreatures.size()));
         	boolean ajoute = false;
             try {
                 Creature creature = CreationCreature.creerCreature(typeAleatoire);
+                
+                if (creature instanceof LoupGarous) {
+                    LoupGarous loupGarou = (LoupGarous) creature;
+                    
+                    Meute meute = meutes.get(random.nextInt(meutes.size()));
+                    loupGarou.setMeute(meute.getNomMeute());
+                    meute.ajouterLoup(loupGarou);
+                }
+                
                 for (ServiceMedical service : services) {
                     if (service.ajouterCreatureSiPossible(creature)) {
                         ajoute = true;
@@ -136,6 +154,11 @@ public class Hopital {
             } catch (IllegalArgumentException e) {
                 System.err.println("Erreur lors de la création de la créature : " + e.getMessage());
             }
+        }
+        
+        for (Meute meute : meutes) {
+            meute.organiserHiérarchie();
+            meute.afficherHiérarchie();
         }
     }
 
