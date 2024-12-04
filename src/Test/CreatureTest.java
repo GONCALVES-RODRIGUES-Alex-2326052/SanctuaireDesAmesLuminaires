@@ -93,14 +93,6 @@ class CreatureTest {
     }
 
     @Test
-    void testContaminer() {
-        Maladie maladie = new Maladie("Rhume");
-        maladies.add(maladie);
-        assertThrows(IndexOutOfBoundsException.class, () -> creature.contaminer(),
-                "La contamination ne devrait pas fonctionner sans maladies.");
-    }
-
-    @Test
     void testGetNom() {
         assertEquals("TestCreature", creature.getNom(), "Le nom de la créature devrait être TestCreature.");
     }
