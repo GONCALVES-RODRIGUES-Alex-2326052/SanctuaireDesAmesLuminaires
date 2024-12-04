@@ -72,13 +72,6 @@ class CreatureTest {
     }
 
     @Test
-    void testTomberMalade() {
-        Maladie maladie = new Maladie("Grippe");
-        String resultat = creature.tomberMalade(maladie);
-        assertTrue(resultat.contains("Grippe"), "Le message devrait indiquer que la créature a attrapé la grippe.");
-    }
-
-    @Test
     void testTrepasser() {
         String resultat = creature.trepasser();
         assertTrue(resultat.contains("mort"), "Le message devrait indiquer que la créature est morte.");

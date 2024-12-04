@@ -96,7 +96,7 @@ public abstract class Creature {
      * @return true si contagieuse, sinon false.
      */
     public boolean estContagieuse() {
-        return contagieuse;
+        return this.contagieuse;
     }
 
     /**

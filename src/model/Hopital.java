@@ -131,8 +131,6 @@ public class Hopital {
     
     public void genererCreaturesAleatoires(int nombreCreatures) {
         Random random = new Random();
-
-        List<Meute> meutes = new ArrayList<>();
         ServiceMedical serviceMedical = services.isEmpty() ? new ServiceMedical("Service Général", 15) : services.get(0);
         
         List<String> typesCreatures = List.of(
@@ -144,14 +142,6 @@ public class Hopital {
             try {
                 Creature creature = CreationCreature.creerCreature(typeAleatoire);
                 ServiceMedical serviceCorrespondant = null;
-                
-                if (creature instanceof LoupGarous) {
-                    LoupGarous loupGarou = (LoupGarous) creature;
-                    
-                    Meute meute = meutes.get(random.nextInt(meutes.size()));
-                    loupGarou.setMeute(meute.getNomMeute());
-                    meute.ajouterLoup(loupGarou);
-                }
                 
                 for (ServiceMedical service : services) {
                 	if (service.getTypeAutorise().isInstance(creature)) {

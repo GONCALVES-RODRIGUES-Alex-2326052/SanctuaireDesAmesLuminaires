@@ -42,7 +42,7 @@ public class ServiceMedical {
         this.medecins = new ArrayList<>();
         this.creatures = new ArrayList<>();
         this.rand = new Random();
-        this.limitePatients = 15;
+        this.limitePatients = limitePatients;
         this.typeAutorise = typeAutorise;
     }
     
