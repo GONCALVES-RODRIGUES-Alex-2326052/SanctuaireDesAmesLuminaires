@@ -103,15 +103,6 @@ public class Hopital {
     public void genererCreaturesAleatoires(int nombreCreatures) {
         Random random = new Random();
         ServiceMedical serviceMedical = services.isEmpty() ? new ServiceMedical("Service Général", 15) : services.get(0);
-
-        List<Meute> meutes = new ArrayList<>();
-        
-        for (int i = 0; i < 3; i++) {
-            Meute meute = new Meute(CreationCreature.genererNomMeute());
-            if (meute.creerMeuteValide(meute)) {
-                meutes.add(meute);
-            }
-        }
         
         List<String> typesCreatures = List.of(
             "elfe", "nain", "orque", "vampire", "zombie", "hommebete", "lycanthrope", "reptilien"
@@ -122,13 +113,6 @@ public class Hopital {
             try {
                 Creature creature = CreationCreature.creerCreature(typeAleatoire);
                 
-                if (creature instanceof LoupGarous) {
-                    LoupGarous loupGarou = (LoupGarous) creature;
-                    
-                    Meute meute = meutes.get(random.nextInt(meutes.size()));
-                    loupGarou.setMeute(meute.getNomMeute());
-                    meute.ajouterLoup(loupGarou);
-                }
                 
                 for (ServiceMedical service : services) {
                     if (service.ajouterCreatureSiPossible(creature)) {
@@ -148,7 +132,7 @@ public class Hopital {
                 }
                 if (!ajoute) {
                     System.out.println("L'hôpital est plein, impossible d'accueillir une nouvelle créature !");
-                    this.setPartiePerdue(true); // Déclare la partie comme perdue
+                    this.setPartiePerdue(true); 
                     break;
                 }
             } catch (IllegalArgumentException e) {
@@ -156,10 +140,6 @@ public class Hopital {
             }
         }
         
-        for (Meute meute : meutes) {
-            meute.organiserHiérarchie();
-            meute.afficherHiérarchie();
-        }
     }
 
     public void afficherNombreDeCreatures() {

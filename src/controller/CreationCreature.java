@@ -72,14 +72,13 @@ public class CreationCreature {
         return rand.nextBoolean() ? "Mâle" : "Femelle";
     }
 
-    private static double genererValeurAleatoire(double min, double max) {
+    private static double genererTailleAleatoire(double min, double max) {
         return min + (max - min) * rand.nextDouble();
     }
 
     private static int genererValeurAleatoire(int min, int max) {
         return min + rand.nextInt(max - min + 1);
     }
-    
     
     private static String genererCategorieAge(int age) {
 	    if (age < 50) return "jeune";
@@ -96,7 +95,7 @@ public class CreationCreature {
         String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(45, 65);
-        double taille = genererValeurAleatoire(1.5, 1.9);
+        double taille = genererTailleAleatoire(1.5, 1.9);
         int age = genererValeurAleatoire(100, 750);
         int moral = genererValeurAleatoire(50, 100);
         List<Maladie> maladies = new ArrayList<>();  
@@ -109,7 +108,7 @@ public class CreationCreature {
         String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(60,200);
-        double taille = genererValeurAleatoire(1.3,1.6);
+        double taille = genererTailleAleatoire(1.3,1.6);
         int age = genererValeurAleatoire(70,350);
         int moral = genererValeurAleatoire(60,100);
         List<Maladie> maladies = new ArrayList<>();
@@ -122,7 +121,7 @@ public class CreationCreature {
     	String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(60,200);
-        double taille = genererValeurAleatoire(1.3,1.6);
+        double taille = genererTailleAleatoire(1.3,1.6);
         int age = genererValeurAleatoire(70,350);
         int moral = genererValeurAleatoire(60,100);
         List<Maladie> maladies = new ArrayList<>();
@@ -136,7 +135,7 @@ public class CreationCreature {
     	String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(60,200);
-        double taille = genererValeurAleatoire(1.3,1.6);
+        double taille = genererTailleAleatoire(1.3,1.6);
         int age = genererValeurAleatoire(70,350);
         int moral = genererValeurAleatoire(60,100);
         List<Maladie> maladies = new ArrayList<>();
@@ -149,7 +148,7 @@ public class CreationCreature {
     	String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(60,200);
-        double taille = genererValeurAleatoire(1.3,1.6);
+        double taille = genererTailleAleatoire(1.3,1.6);
         int age = genererValeurAleatoire(70,350);
         int moral = genererValeurAleatoire(60,100);
         List<Maladie> maladies = new ArrayList<>();
@@ -162,7 +161,7 @@ public class CreationCreature {
     	String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(60,200);
-        double taille = genererValeurAleatoire(1.3,1.6);
+        double taille = genererTailleAleatoire(1.3,1.6);
         int age = genererValeurAleatoire(70,350);
         int moral = genererValeurAleatoire(60,100);
         List<Maladie> maladies = new ArrayList<>();
@@ -175,7 +174,7 @@ public class CreationCreature {
     	String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(60,200);
-        double taille = genererValeurAleatoire(1.3,1.6);
+        double taille = genererTailleAleatoire(1.3,1.6);
         int age = genererValeurAleatoire(70,350);
         int moral = genererValeurAleatoire(60,100);
         List<Maladie> maladies = new ArrayList<>();
@@ -188,7 +187,7 @@ public class CreationCreature {
         String nom = genererNom();
         String sexe = genererSexe();
         double poids = rand.nextDouble(70,100);
-        double taille = genererValeurAleatoire(1.6,1.9);
+        double taille = genererTailleAleatoire(1.6,1.9);
         int age = rand.nextInt(1,300);;
         int moral = rand.nextInt(1,100);
         String categorieAge = genererCategorieAge(age);
