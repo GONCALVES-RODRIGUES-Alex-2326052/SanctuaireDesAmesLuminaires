@@ -13,6 +13,8 @@ public abstract class Creature {
     private int etat;  // Nouvel attribut pour l'état de la créature
     private List<Maladie> maladies;
     private Random random;
+    private boolean contagieuse;
+    private boolean regenerante;
 
     /**
      * Constructeur de la classe Creature
@@ -23,6 +25,8 @@ public abstract class Creature {
      * @param taille
      * @param age
      * @param moral
+     * @param contagieuse
+     * @param regenerante
      */
     public Creature(String nom, String sexe, double poids, double taille, int age, int moral) {
     	this.random = new Random();
@@ -33,6 +37,8 @@ public abstract class Creature {
         this.age = age;
         this.moral = moral;
         this.etat = random.nextInt(30)+60;
+        this.contagieuse = contagieuse;
+        this.regenerante = regenerante;
     }
 
  	/**
@@ -82,6 +88,42 @@ public abstract class Creature {
         this.moral += ameliorer;
         if (this.moral > 100)
             this.moral = 100;
+    }
+    
+    /**
+     * Vérifie si la créature est contagieuse.
+     * 
+     * @return true si contagieuse, sinon false.
+     */
+    public boolean estContagieuse() {
+        return contagieuse;
+    }
+
+    /**
+     * Vérifie si la créature est régénérante.
+     * 
+     * @return true si régénérante, sinon false.
+     */
+    public boolean estRegenerante() {
+        return regenerante;
+    }
+
+    /**
+     * Définit si une créature est contagieuse.
+     * 
+     * @param contagieuse
+     */
+    public void setContagieuse(boolean contagieuse) {
+        this.contagieuse = contagieuse;
+    }
+
+    /**
+     * Définit si une créature est régénérante.
+     * 
+     * @param regenerante
+     */
+    public void setRegenerante(boolean regenerante) {
+        this.regenerante = regenerante;
     }
     
     /**

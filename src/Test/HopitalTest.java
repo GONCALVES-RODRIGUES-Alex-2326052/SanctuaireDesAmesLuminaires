@@ -21,7 +21,7 @@ class HopitalTest {
     @BeforeEach
     void setUp() {
         hopital = new Hopital("Hôpital Test", 3); // Nom de l'hôpital et max services = 3
-        service = new ServiceMedical("Service Test");
+        service = new ServiceMedical("Service Test", 15, Creature.class);
         medecin = new Medecin("Dr. Test", "Chirurgien", 2);
     }
 

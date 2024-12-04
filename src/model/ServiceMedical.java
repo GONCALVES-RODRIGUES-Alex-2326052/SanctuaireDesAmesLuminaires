@@ -13,31 +13,43 @@ public class ServiceMedical {
     private Random rand;
     private boolean enCrise = false;
     private int limitePatients;
+    private Class<? extends Creature> typeAutorise;
 
-    public ServiceMedical(String nom, int limitePatients) {
+    public ServiceMedical(String nom, int limitePatients, Class<? extends Creature> typeAutorise) {
         this.nom = nom;
         this.medecins = new ArrayList<>();
         this.creatures = new ArrayList<>();
         this.rand = new Random();
-        this.limitePatients = limitePatients;
+        this.limitePatients = 15;
+        this.typeAutorise = typeAutorise;
     }
     
- // Nouveau constructeur avec une valeur par défaut pour limitePatients
-    public ServiceMedical(String nom) {
-        this(nom, 10); // Par exemple, une limite par défaut de 10 patients
+    public ServiceMedical(String nom, int capaciteMax) {
+        this(nom, 10, null);
+        this.typeAutorise = Creature.class;
     }
-
+    
     public void ajouterCreature(Creature creature) {
         creatures.add(creature);
     }
     
+    public Class<? extends Creature> getTypeAutorise() {
+        return typeAutorise;
+    }
+    
     public boolean ajouterCreatureSiPossible(Creature creature) {
         int nombreMaxCreatures = 30;
-		if (creatures.size() < nombreMaxCreatures) {
+        if (typeAutorise != null && !typeAutorise.isInstance(creature)) {
+            System.out.println("Erreur : Ce service n'accepte pas cette créature !");
+            return false; // La créature n'est pas du bon type
+        }
+        if (creatures.size() < nombreMaxCreatures) {
             creatures.add(creature);
             return true;
-        }
-        return false;
+        }else {
+	        System.out.println("Le service est plein !");
+	        return false;
+	    }
     }
 
     public List<Creature> verifierEtSupprimerCreatures() {

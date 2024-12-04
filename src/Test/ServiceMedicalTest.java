@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import model.ServiceMedical;
+import model.Creature;
 import model.Medecin;
 
 class ServiceMedicalTest {
@@ -14,7 +15,7 @@ class ServiceMedicalTest {
 
     @BeforeEach
     void setUp() {
-        service = new ServiceMedical("Service Test");
+        service = new ServiceMedical("Service Test", 15, Creature.class);
         medecin = new Medecin("Dr. Test", "Chirurgien", 2);
     }
 
@@ -27,7 +28,7 @@ class ServiceMedicalTest {
 
     @Test
     void testServiceMedicalString() {
-        service = new ServiceMedical("Service Test");
+        service = new ServiceMedical("Service Test", 15, Creature.class);
         assertEquals("Service Test", service.getNom());
     }
 
