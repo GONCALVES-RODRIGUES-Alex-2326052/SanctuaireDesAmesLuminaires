@@ -133,13 +133,6 @@ public class Hopital {
         Random random = new Random();
 
         List<Meute> meutes = new ArrayList<>();
-        
-        for (int i = 0; i < 3; i++) {
-            Meute meute = new Meute(CreationCreature.genererNomMeute());
-            if (meute.creerMeuteValide(meute)) {
-                meutes.add(meute);
-            }
-        }
         ServiceMedical serviceMedical = services.isEmpty() ? new ServiceMedical("Service Général", 15) : services.get(0);
         
         List<String> typesCreatures = List.of(
@@ -195,11 +188,6 @@ public class Hopital {
             } catch (IllegalArgumentException e) {
                 System.err.println("Erreur lors de la création de la créature : " + e.getMessage());
             }
-        }
-        
-        for (Meute meute : meutes) {
-            meute.organiserHiérarchie();
-            meute.afficherHiérarchie();
         }
     }
 

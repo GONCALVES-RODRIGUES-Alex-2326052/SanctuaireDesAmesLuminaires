@@ -31,16 +31,13 @@ public class ServiceMedical {
     private int limitePatients;
     private Class<? extends Creature> typeAutorise;
 
-<<<<<<< HEAD
-    public ServiceMedical(String nom, int limitePatients, Class<? extends Creature> typeAutorise) {
-=======
     /**
      * Constructeur principal de la classe ServiceMedical.
      * 
      * @param nom            Nom du service médical.
      * @param limitePatients Nombre maximum de patients que le service peut gérer.
      */
-    public ServiceMedical(String nom, int limitePatients) {
+    public ServiceMedical(String nom, int limitePatients, Class<? extends Creature> typeAutorise) {
         this.nom = nom;
         this.medecins = new ArrayList<>();
         this.creatures = new ArrayList<>();
@@ -49,7 +46,7 @@ public class ServiceMedical {
         this.typeAutorise = typeAutorise;
     }
     
-    public ServiceMedical(String nom, int capaciteMax) {
+    public ServiceMedical(String nom, int limitePatients) {
         this(nom, 10, null);
         this.typeAutorise = Creature.class;
     }
@@ -61,13 +58,6 @@ public class ServiceMedical {
     public Class<? extends Creature> getTypeAutorise() {
         return typeAutorise;
     }
-    
-    public boolean ajouterCreatureSiPossible(Creature creature) {
-        int nombreMaxCreatures = 30;
-        if (typeAutorise != null && !typeAutorise.isInstance(creature)) {
-            System.out.println("Erreur : Ce service n'accepte pas cette créature !");
-            return false; // La créature n'est pas du bon type
-        }
 
     /**
      * Constructeur alternatif avec une limite de patients par défaut.
@@ -76,15 +66,6 @@ public class ServiceMedical {
      */
     public ServiceMedical(String nom) {
         this(nom, 10); // Limite par défaut de 10 patients.
-    }
-
-    /**
-     * Ajoute une créature à la liste des créatures du service.
-     * 
-     * @param creature La créature à ajouter.
-     */
-    public void ajouterCreature(Creature creature) {
-        creatures.add(creature);
     }
 
     /**
