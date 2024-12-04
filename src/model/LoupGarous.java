@@ -14,39 +14,44 @@ public class LoupGarous extends Creature{
     private double facteurImpetuosite;
     private String meute;
     private boolean humain;
-    
+    private String rangGrec;
     /**
 	 * @param nom
 	 * @param sexe
 	 * @param poids
 	 * @param taille
-     * @param tailleHumain 
-     * @param tailleLoup 
 	 * @param age
 	 * @param moral
+	 * @param maladies
 	 * @param categorieAge
 	 * @param force
 	 * @param facteurDomination
 	 * @param rang
 	 * @param niveau
 	 * @param facteurImpetuosite
-     * @param  
 	 * @param meute
+	 * @param humain
 	 */
-	
-    public LoupGarous(String nom, String sexe, double poids, double taille, int age, int moral, String categorieAge, int force, int facteurDomination, int rang,double facteurImpetuosite, String meute, List<Maladie> maladies) {
-		
-    	super(nom, sexe, poids, taille, age, moral);
+
+	public LoupGarous(String nom, String sexe, double poids, double taille, int age, int moral, List<Maladie> maladies,
+			String categorieAge, int force, int facteurDomination, int rang, double niveau, double facteurImpetuosite,
+			String meute, boolean humain) {
+		super(nom, sexe, poids, taille, age, moral);
+		this.maladies = maladies;
 		this.categorieAge = categorieAge;
 		this.force = force;
 		this.facteurDomination = facteurDomination;
 		this.rang = rang;
+		this.niveau = calculerNiveau();
 		this.facteurImpetuosite = facteurImpetuosite;
 		this.meute = meute;
-		this.humain = true;
-		this.maladies = maladies;
-		this.niveau = calculerNiveau();
-}
+		this.humain = humain;
+	}
+    
+    /**
+     * Affiche les caractéristiques des Loups-Garous.
+     */
+	
 	@Override
 	public void afficherCaracteristiques() {
         super.afficherCaracteristiques();
@@ -61,19 +66,13 @@ public class LoupGarous extends Creature{
         afficherMaladies();
     }
 	
+	/**
+	 * @return return le type de la classe.
+	 */
 	@Override
     public String getType() {
     	return " Lycanthrope";
     }
-	
-	public void hurler() {
-		if(humain) {
-			System.out.println("Ne peux pas hurler sous forme humaine !");
-		}
-		else {
-			System.out.println("Pousse un puissant hurlement !");
-		}
-	}
 	
 	/**
 	 * @return maladies
@@ -174,6 +173,7 @@ public class LoupGarous extends Creature{
 	
 	public void setNiveau(double niveau) {
 		this.niveau = niveau;
+		this.niveau = calculerNiveau();
 	}
 	
 	/**
@@ -209,6 +209,22 @@ public class LoupGarous extends Creature{
 		this.meute = meute;
 	}
 	
+	/**
+	 * 
+	 * @return le getter de rangGrec
+	 */
+	public String getRangGrec() {
+		return rangGrec(rang);
+	}
+	
+	/**
+	 * 
+	 * @param rangGrec
+	 */
+	public void setRangGrec(String rangGrec) {
+		this.rangGrec = rangGrec;
+	}
+	
 	
 	/**
 	 * @param min
@@ -218,31 +234,32 @@ public class LoupGarous extends Creature{
 	
 	private double coeffAléatoire(double min, double max) {
 		Random random = new Random();
-		return min * (max - min) * random.nextDouble() ;
+		return random.nextDouble(min, max);
 	}
 	
 	/**
 	 * 
 	 * @return le niveau d'un loup-garou (en double) en fonction de son âge.
 	 */
-	
-	private double calculerNiveau() {
-        double coeffAge;
-        switch (categorieAge.toLowerCase()) {
-            case "jeune":
-                coeffAge = coeffAléatoire(0.3, 0.6);
-                break;
-            case "adulte":
-                coeffAge = coeffAléatoire(1.1, 2);
-                break;
-            case "vieux":
-                coeffAge = coeffAléatoire(0.7, 1.1);
-                break;
-            default:
-                coeffAge = 1.0;
-        }
-        return coeffAge * (facteurDomination * 2 + rang * 10 + force) * (1 + facteurImpetuosite);
-    }
+	public double calculerNiveau() {
+	    double coeffAge;
+	    switch (categorieAge.toLowerCase()) {
+	        case "jeune":
+	            coeffAge = coeffAléatoire(0.3, 0.6);
+	            break;
+	        case "adulte":
+	            coeffAge = coeffAléatoire(1.1, 2.0);
+	            break;
+	        case "vieux":
+	            coeffAge = coeffAléatoire(0.7, 1.1);
+	            break;
+	        default:
+	            coeffAge = 1.0;
+	    }
+	    double niveau = coeffAge * (facteurDomination * 2 + rang * 10 + force) * (1 + facteurImpetuosite);
+	    return Math.round(niveau);
+	}
+
 	
 	/**
 	 * 
@@ -252,6 +269,9 @@ public class LoupGarous extends Creature{
 		return meute.equalsIgnoreCase("solitaire");
 	}
 	
+	/**
+	 * @return Si le loup-garou est malade et quelle est sa maladie ou sinon qu'il n'est pas malade
+	 */
 	public void afficherMaladies() {
         if (maladies != null && !maladies.isEmpty()) {
             System.out.println("Maladies de " + getNom() + ":");
@@ -261,5 +281,37 @@ public class LoupGarous extends Creature{
         } else {
             System.out.println(getNom() + " n'a pas de maladies.");
         }
+    }
+	public void hurler() {
+		if (humain) {
+			System.out.println( getNom() + " ne peut pas pousser à un hurlement !");
+		}
+		else {
+			System.out.println( getNom() + " pousse un puissant hurlement !");
+		}
+	}
+	
+	public void seTransphormer() {
+		if (humain) {
+			System.out.println(getNom() + " est déjà sous forme humaine !");
+		}
+		else {
+			humain = true;
+			System.out.println(getNom() + " se transphorme en loup-garou !");
+		}
+	}
+	
+	public void separationMeute() {
+		if (meute == null || meute.equalsIgnoreCase("Solitaire")) {
+			System.out.println(getNom() + " est déjà solitaire !");
+		}
+		else {
+			System.out.println( getNom() + " quitte la meute : " + getMeute());
+		}
+	}
+	
+	public static String rangGrec(int position) {
+    	String[] rangsGrec = {"ω", "ψ", "χ", "φ", "υ", "τ", "σ", "ρ", "π", "ο", "ξ", "ν", "μ", "λ", "κ", "ι", "θ", "η", "ζ", "ε", "δ", "γ", "β", "α"};
+        return position < rangsGrec.length ? rangsGrec[position] : "ω";
     }
 }
