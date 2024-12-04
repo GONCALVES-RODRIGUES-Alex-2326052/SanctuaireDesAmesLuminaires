@@ -88,7 +88,7 @@ public class Hopital {
                 for (int i = 0; i < 2; i++) {
                     String nom = "Médecin-" + (i + 1);
                     String specialite = i % 2 == 0 ? "Guérisseur" : "Chirurgien";
-                    Medecin medecin = new Medecin(nom, specialite, 10 + i * 5);
+                    Medecin medecin = new Medecin(nom, specialite, 2);
                     service.ajouterMedecin(medecin);
                 }
             }
