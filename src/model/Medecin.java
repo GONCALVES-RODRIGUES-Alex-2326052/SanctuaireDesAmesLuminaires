@@ -36,12 +36,8 @@ public class Medecin {
      */
     public void soigner(Creature creature) {
         Random random = new Random();
-        if (patients.contains(creature)) {
-            System.out.println(nom + " soigne la créature " + creature.getNom() + "...");
-            creature.etreSoignee(random.nextInt(11)*experience); 
-        } else {
-            System.out.println("La créature " + creature.getNom() + " n'est pas prise en charge par " + nom);
-        }
+        System.out.println(nom + " soigne la créature " + creature.getNom() + "...");
+        creature.etreSoignee(random.nextInt(11) * experience);
     }
     
     public boolean estDisponible(int limitePatients) {

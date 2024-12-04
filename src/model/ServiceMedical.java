@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -11,12 +12,19 @@ public class ServiceMedical {
     private List<Creature> creatures;
     private Random rand;
     private boolean enCrise = false;
+    private int limitePatients;
 
-    public ServiceMedical(String nom) {
+    public ServiceMedical(String nom, int limitePatients) {
         this.nom = nom;
         this.medecins = new ArrayList<>();
         this.creatures = new ArrayList<>();
         this.rand = new Random();
+        this.limitePatients = limitePatients;
+    }
+    
+ // Nouveau constructeur avec une valeur par défaut pour limitePatients
+    public ServiceMedical(String nom) {
+        this(nom, 10); // Par exemple, une limite par défaut de 10 patients
     }
 
     public void ajouterCreature(Creature creature) {
@@ -32,7 +40,7 @@ public class ServiceMedical {
         return false;
     }
 
-    public void verifierEtSupprimerCreatures() {
+    public List<Creature> verifierEtSupprimerCreatures() {
         List<Creature> aSupprimer = new ArrayList<>();
 
         for (Creature creature : creatures) {
@@ -45,6 +53,8 @@ public class ServiceMedical {
             System.out.println("Suppression de la créature : " + creature.getNom() + " car son état est à 100.");
             creatures.remove(creature);
         }
+        
+        return aSupprimer;
     }
 
     public void afficherCreatures() {
@@ -116,6 +126,15 @@ public class ServiceMedical {
     public List<Creature> getCreatures() {
         return creatures;
     }
+    
+    public int getLimitePatients() {
+        return limitePatients;
+    }
+
+    public void setLimitePatients(int limitePatients) {
+        this.limitePatients = limitePatients;
+    }
+
 
     public void afficherService() {
         System.out.println("Service : " + nom);
@@ -173,6 +192,32 @@ public class ServiceMedical {
             System.out.println("Aucune créature nécessitant des soins.");
         }
     }
+    
+    public void assignerPatientsAuxMedecins() {
+        for (Creature creature : creatures) {
+            boolean prisEnCharge = false;
+
+            // Vérifier si la créature est déjà prise en charge
+            for (Medecin medecin : medecins) {
+                if (medecin.getPatients().contains(creature)) {
+                    prisEnCharge = true;
+                    break;
+                }
+            }
+
+            // Si la créature n'est pas prise en charge, assigner un médecin disponible
+            if (!prisEnCharge) {
+                for (Medecin medecin : medecins) {
+                    if (medecin.estDisponible(limitePatients)) {
+                        medecin.getPatients().add(creature);
+                        System.out.println("Créature " + creature.getNom() + " assignée au médecin " + medecin.getNom());
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
     
     public void afficherRapport() {
         System.out.println("\n📋 Rapport du service " + nom + " :");

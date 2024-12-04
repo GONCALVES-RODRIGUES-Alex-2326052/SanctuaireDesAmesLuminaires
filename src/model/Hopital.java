@@ -101,7 +101,7 @@ public class Hopital {
     
     public void genererCreaturesAleatoires(int nombreCreatures) {
         Random random = new Random();
-        ServiceMedical serviceMedical = services.isEmpty() ? new ServiceMedical("Service Général") : services.get(0);
+        ServiceMedical serviceMedical = services.isEmpty() ? new ServiceMedical("Service Général", 15) : services.get(0);
 
         // Ajouter des créatures
         List<String> typesCreatures = List.of(
