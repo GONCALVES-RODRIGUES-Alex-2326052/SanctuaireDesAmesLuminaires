@@ -5,12 +5,26 @@ import java.util.Random;
 
 public class Orque extends Creature {
 	private List<Maladie> maladies;
-
+	
+	/**
+	 * Constructeur de la classe Orque qui appelle le constructeur de Creature
+	 * 
+	 * @param nom
+	 * @param sexe
+	 * @param poids
+	 * @param taille
+	 * @param age
+	 * @param moral
+	 * @param maladies
+	 */
 	public Orque(String nom, String sexe, double poids, double taille, int age, int moral, List<Maladie> maladies) {
 		super(nom, sexe, poids, taille, age, moral);
 		this.maladies = maladies;
 	}
 	
+	/**
+	 * @return la liste des maladies 
+	 */
 	public List<Maladie> getMaladies() {
 		return maladies;
 	}

@@ -14,7 +14,16 @@ public abstract class Creature {
     private List<Maladie> maladies;
     private Random random;
 
-    // Constructeur de la classe Creature
+    /**
+     * Constructeur de la classe Creature
+     * 
+     * @param nom
+     * @param sexe
+     * @param poids
+     * @param taille
+     * @param age
+     * @param moral
+     */
     public Creature(String nom, String sexe, double poids, double taille, int age, int moral) {
     	this.random = new Random();
         this.nom = nom;
@@ -26,7 +35,12 @@ public abstract class Creature {
         this.etat = random.nextInt(30)+60;
     }
 
- // Méthode pour améliorer l'état de la créature
+ 	/**
+ 	 * Methode qui augmente l'état et evite qu'il ne depasse 100
+ 	 * 
+ 	 * @param amelioration
+ 	 * 
+ 	 */
     public void ameliorerEtat(int amelioration) {
         this.etat += amelioration;
         if (this.etat > 100) {
@@ -34,39 +48,63 @@ public abstract class Creature {
         }
     }
 
-    //Méthode pour diminuer l'état de la créature
+    /**
+     * Methode qui diminue l'état et evite qu'il ne descende en dessous de 0
+     * 
+     * @param diminution
+     * 
+     */
     public void diminuerEtat(int diminution) {
         this.etat -= diminution;
         if (this.etat < 0)
             etat = 0;
     }
 
-    // Méthode pour diminuer le moral de la créature
+    /**
+     * Methode qui diminue le moral et evite qu'il ne descende en dessous de 0
+     * 
+     * @param diminution
+     * 
+     */
     public void diminuerMoral(int diminution) {
         this.moral -= diminution;
         if(this.moral < 0)
             this.moral = 0;
     }
 
-    // Méthode pour améliorer le moral de la créature
+    /**
+     * Methode qui ameliore l'etat et evite qu'il depasse 100
+     * 
+     * @param ameliorer
+     * 
+     */
     public void ameliorerMoral(int ameliorer) {
         this.moral += ameliorer;
         if (this.moral > 100)
             this.moral = 100;
     }
     
-    // Methode pour l'attente
+    /**
+     * 
+     * @return le nom de créature et comme quoi elle attend
+     */
     public String attendre() {
     	diminuerMoral(random.nextInt(5));
     	return getNom() + " est en train d'attendre.";
     }
     
-    // Methode pour l'hurlement
+    /**
+     * 
+     * @return le nom de la créature et le fait qu'elle hurle
+     */
     public String hurler() {
     	return getNom() + " hurle parce que son moral est au plus bas !";
     }
     
-    // Methode pour s'emporter 
+    /**
+     *  
+     * @return le nom de la créature, le fait qu'elle se soit emporter et si elle a contaminer un autre monstre
+     */
     public String emporter() {
     	if (random.nextBoolean()) {
     		contaminer();
@@ -75,17 +113,28 @@ public abstract class Creature {
     	else return getNom() + " s'est emporter a cause de hurlement consecutive !";
     }
     
-    // Methode pour tomber malade
+    /**
+     * 
+     * @param maladie
+     * @return le nom de la créature et la maladie qu'elle a attrapé
+     */
     public String tomberMalade(Maladie maladie) {
     	return getNom() + " a attraper " + maladie.getNom() + " !";
     }
     
-    // Methode pour trepasser (mourir)
+    /**
+     * 
+     * @return le nom de la créature et le fait qu'elle soit morte
+     */
     public String trepasser() {
     	return getNom() + " est mort !";
     }
     
-    // Methode pour soigner
+    /**
+     * 
+     * @param soin
+     * @return le nom de la créature et le fait qu'elle soit soigné
+     */
     public String etreSoignee(int soin) {
     	ameliorerEtat(soin);
     	ameliorerMoral(soin);
@@ -93,44 +142,86 @@ public abstract class Creature {
     }
     
 
-	 // Methode pour contaminer les autres Créature
+	 /**
+	  * 
+	  * @return une maladie choisie aléatoirement parmis ce possédé par la créature
+	  */
 	public Maladie contaminer() {
 		random = new Random();
 		return maladies.get(random.nextInt(maladies.size()));
 	}
-	// Getters et Setters
+	
+	/**
+	 * 
+	 * @return le nom de la créature
+	 */
     public String getNom() {
         return nom;
     }
 
+    /**
+     * 
+     * @return le sexe de la créature (Mâle ou Femelle)
+     */
     public String getSexe() {
         return sexe;
     }
+    
+    /**
+     * 
+     * @return le poids de la créature
+     */
+    
 
     public double getPoids() {
         return poids;
     }
 
+    /**
+     * 
+     * @return la taille de la créature
+     */
     public double getTaille() {
         return taille;
     }
-
+    
+    /**
+     * 
+     * @return l'âge de la créature
+     */
     public int getAge() {
         return age;
     }
 
+    /**
+     * 
+     * @return le moral de créature
+     */
     public int getMoral() {
         return moral;
     }
     
+    /**
+     * 
+     * @param etat
+     * setters de etat
+     */
     public void setEtat(int etat) {
         this.etat = etat;
     }
 
+    /**
+     * 
+     * @return l'etat de la créature
+     */
     public int getEtat() {
         return etat;
     }
 
+    /**
+     * 
+     * @return la liste des maladies que la créature possède
+     */
     public List<Maladie> getMaladies() {
         return maladies;
     }

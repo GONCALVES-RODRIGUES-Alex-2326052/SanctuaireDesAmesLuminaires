@@ -2,6 +2,8 @@ package controller;
 
 import model.*;
 import view.ConsoleView;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -74,12 +76,62 @@ public class SanctuaireDesAmesLuminairesController {
         int choix = view.demanderChoix("Sélectionnez une action :", 1, 4);
 
         switch (choix) {
-            case 1 -> medecinController.soigner(service);
-            case 2 -> service.afficherCreatures();
+            case 1 -> afficherEtChoisirMedecin(service);
+            case 2 -> service.afficherService();
             case 3 -> afficherMedecins(service);
             case 4 -> service.afficherEtTraiterPatientsParPriorite();
         }
     }
+    
+    private void afficherEtChoisirMedecin(ServiceMedical service) {
+        List<Medecin> medecins = service.getMedecins();
+        if (medecins.isEmpty()) {
+            view.afficherMessage("Aucun médecin disponible dans ce service.");
+            return;
+        }
+
+        // Liste des médecins disponibles
+        List<Medecin> medecinsDisponibles = medecins.stream()
+            .filter(medecin -> medecin.estDisponible(service.getLimitePatients()))
+            .toList();
+
+        if (medecinsDisponibles.isEmpty()) {
+            view.afficherMessage("Aucun médecin n'est actuellement disponible pour soigner une créature.");
+            return;
+        }
+
+        view.afficherMessage("Médecins disponibles pour soigner une créature :");
+        for (int i = 0; i < medecinsDisponibles.size(); i++) {
+            Medecin medecin = medecinsDisponibles.get(i);
+            view.afficherMessage((i + 1) + ". " + medecin.getNom() + " - Spécialité : " 
+                + medecin.getSpecialite() + " (Patients : " + medecin.getPatients().size() + ")");
+        }
+
+        int index = view.demanderChoix("Choisissez un médecin pour soigner la créature :", 1, medecinsDisponibles.size()) - 1;
+        Medecin medecinChoisi = medecinsDisponibles.get(index);
+
+        // Choisir une créature à soigner
+        List<Creature> creatures = service.getCreatures();
+        if (creatures.isEmpty()) {
+            view.afficherMessage("Aucune créature n'est actuellement disponible dans ce service.");
+            return;
+        }
+
+        view.afficherMessage("Liste des créatures disponibles :");
+        for (int i = 0; i < creatures.size(); i++) {
+            Creature creature = creatures.get(i);
+            view.afficherMessage((i + 1) + ". " + creature.getNom() + " (État : " + creature.getEtat() + ")");
+        }
+
+        int creatureIndex = view.demanderChoix("Choisissez une créature à soigner :", 1, creatures.size()) - 1;
+        Creature creatureChoisie = creatures.get(creatureIndex);
+
+        medecinChoisi.soigner(creatureChoisie); // Le médecin soigne la créature
+        if (!medecinChoisi.getPatients().contains(creatureChoisie)) {
+            medecinChoisi.getPatients().add(creatureChoisie); // Ajoute la créature à la liste des patients
+        }
+    }
+
     
     private void afficherMedecins(ServiceMedical service) {
         List<Medecin> medecins = service.getMedecins();
@@ -100,10 +152,21 @@ public class SanctuaireDesAmesLuminairesController {
     
     private void passerAuJourSuivant() {
         jourActuel++;
+        List<Creature> creaturesQuiOntQuitte = new ArrayList<>();
         for (ServiceMedical service : hopital.getServices()) {
             service.modifierEtatAleatoireDesCreatures();
             service.verifierEtDeclencherCrise();
-            service.verifierEtSupprimerCreatures();
+            creaturesQuiOntQuitte.addAll(service.verifierEtSupprimerCreatures());// Récupérer les créatures supprimées
+            service.assignerPatientsAuxMedecins();
+        }
+        // Afficher un message si des créatures ont quitté l'hôpital
+        if (!creaturesQuiOntQuitte.isEmpty()) {
+            view.afficherMessage("\nCréatures qui ont quitté l'hôpital aujourd'hui :");
+            for (Creature creature : creaturesQuiOntQuitte) {
+                view.afficherMessage("- " + creature.getNom() + " (" + creature.getClass().getSimpleName() + ")");
+            }
+        } else {
+            view.afficherMessage("\nAucune créature n'a quitté l'hôpital aujourd'hui.");
         }
         if (jourActuel == 4) {
             int nombreNouvellesCreatures = 1 + new Random().nextInt(5); // 1 à 5 créatures
