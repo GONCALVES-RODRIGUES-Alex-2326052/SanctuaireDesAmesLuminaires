@@ -23,23 +23,34 @@ public class Orque extends Creature {
 	}
 	
 	/**
+	 * Getter de maladies
+	 * 
 	 * @return la liste des maladies 
 	 */
 	public List<Maladie> getMaladies() {
 		return maladies;
 	}
 
+	/**
+	 * Setter de maladies maladies
+	 * 
+	 * @param maladies
+	 */
 	public void setMaladies(List<Maladie> maladies) {
 		this.maladies = maladies;
 	}
 	
-	// Methode pour contaminer les autres Créature
-		public Maladie contaminer() {
-			Random random = new Random();
-			return maladies.get(random.nextInt(maladies.size()));
-		}
+	/**
+	 * @return une maladie 	
+	 */
+	public Maladie contaminer() {
+		Random random = new Random();
+		return maladies.get(random.nextInt(maladies.size()));
+	}
 	
-	// Méthode spécifique pour afficher les maladies de l'Orque
+	/**
+	 * Méthode spécifique pour afficher les maladies de l'Orque
+	 */
     public void afficherMaladies() {
         if (maladies != null && !maladies.isEmpty()) {
             System.out.println("Maladies de " + getNom() + ":");

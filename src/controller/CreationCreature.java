@@ -1,5 +1,6 @@
 package controller;
 
+import model.ClientVIP;
 import model.Creature;
 import model.Elfe;
 import model.HommeBete;
@@ -7,6 +8,7 @@ import model.Maladie;
 import model.Nain;
 import model.Orque;
 import model.Reptilien;
+import model.Triage;
 //import model.Triage;
 import model.Vampire;
 import model.Zombie;
@@ -17,26 +19,27 @@ import java.util.Random;
 
 public class CreationCreature {
     private static final Random rand = new Random();
-    //private Triage triage;
 
     public static Creature creerCreature(String type){
+    	ClientVIP clientVIP = new ClientVIP();
+    	Triage triage = new Triage();
         switch (type.toLowerCase()) {
             case "elfe":
-                return creerElfe();
+                return creerElfe(clientVIP);
             case "nain":
-                return creerNain();
+                return creerNain(clientVIP);
             case "orque":
-                return creerOrque();
+                return creerOrque(triage);
             case "vampire":
-                return creerVampire();
+                return creerVampire(clientVIP);
             case "zombie":
-                return creerZombie();
+                return creerZombie(triage);
             case "hommebete":
-                return creerHommeBete();
+                return creerHommeBete(triage);
 //            case "lycanthrope":
 //                return creerLycanthrope();
             case "reptilien":
-                return creerReptilien();
+                return creerReptilien(clientVIP);
             default:
                 throw new IllegalArgumentException("Type de créature inconnu : " + type);
         }
@@ -74,7 +77,7 @@ public class CreationCreature {
         return min + rand.nextInt(max - min + 1);
     }
 
-    private static Elfe creerElfe(){
+    private static Elfe creerElfe(ClientVIP clientVIP){
         String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(45, 65);
@@ -82,11 +85,12 @@ public class CreationCreature {
         int age = genererValeurAleatoire(100, 750);
         int moral = genererValeurAleatoire(50, 100);
         List<Maladie> maladies = new ArrayList<>();  // Liste vide de maladies (tu peux y ajouter des objets Maladie si nécessaire)
-
-        return new Elfe(nom, sexe, poids, taille, age, moral, maladies);
+        Elfe elfe = new Elfe(nom, sexe, poids, taille, age, moral, maladies);
+        if(clientVIP!=null) clientVIP.ajouterCreature(elfe);
+        return elfe;
     }
 
-    private static Nain creerNain() {
+    private static Nain creerNain(ClientVIP clienVIP) {
         String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(60,200);
@@ -94,10 +98,12 @@ public class CreationCreature {
         int age = genererValeurAleatoire(70,350);
         int moral = genererValeurAleatoire(60,100);
         List<Maladie> maladies = new ArrayList<>();
-        return new Nain(nom,sexe,poids,taille,age,moral, maladies);
+        Nain nain =  new Nain(nom,sexe,poids,taille,age,moral, maladies);
+        if(clienVIP!=null) clienVIP.ajouterCreature(nain);
+        return nain;
     }
-    
-    private static HommeBete creerHommeBete() {
+
+    private static HommeBete creerHommeBete(Triage triage) {
     	String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(60,200);
@@ -105,10 +111,13 @@ public class CreationCreature {
         int age = genererValeurAleatoire(70,350);
         int moral = genererValeurAleatoire(60,100);
         List<Maladie> maladies = new ArrayList<>();
-        return new HommeBete(nom,sexe,poids,taille,age,moral, maladies);
+        HommeBete hommeBete = new HommeBete(nom,sexe,poids,taille,age,moral, maladies);
+        if(triage!=null)
+        	triage.ajouterCreature(hommeBete);
+        return hommeBete;
     }
     
-    private static Orque creerOrque() {
+    private static Orque creerOrque(Triage triage) {
     	String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(60,200);
@@ -116,10 +125,12 @@ public class CreationCreature {
         int age = genererValeurAleatoire(70,350);
         int moral = genererValeurAleatoire(60,100);
         List<Maladie> maladies = new ArrayList<>();
-        return new Orque(nom,sexe,poids,taille,age,moral, maladies);
+        Orque orque = new Orque(nom,sexe,poids,taille,age,moral, maladies);
+        if(triage!=null) triage.ajouterCreature(orque);
+        return orque;
     }
     
-    private static Vampire creerVampire() {
+    private static Vampire creerVampire(ClientVIP clientVIP) {
     	String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(60,200);
@@ -127,10 +138,12 @@ public class CreationCreature {
         int age = genererValeurAleatoire(70,350);
         int moral = genererValeurAleatoire(60,100);
         List<Maladie> maladies = new ArrayList<>();
-        return new Vampire(nom,sexe,poids,taille,age,moral, maladies);
+        Vampire vampire = new Vampire(nom,sexe,poids,taille,age,moral, maladies);
+        if(clientVIP!=null) clientVIP.ajouterCreature(vampire);
+        return vampire;
     }
     
-    private static Zombie creerZombie() {
+    private static Zombie creerZombie(Triage triage) {
     	String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(60,200);
@@ -138,10 +151,12 @@ public class CreationCreature {
         int age = genererValeurAleatoire(70,350);
         int moral = genererValeurAleatoire(60,100);
         List<Maladie> maladies = new ArrayList<>();
-        return new Zombie(nom,sexe,poids,taille,age,moral, maladies);
+        Zombie zombie = new Zombie(nom,sexe,poids,taille,age,moral, maladies);
+        if(triage!=null) triage.ajouterCreature(zombie);
+        return zombie;
     }
     
-    private static Reptilien creerReptilien() {
+    private static Reptilien creerReptilien(ClientVIP clientVIP) {
     	String nom = genererNom();
         String sexe = genererSexe();
         double poids = genererValeurAleatoire(60,200);
@@ -149,6 +164,8 @@ public class CreationCreature {
         int age = genererValeurAleatoire(70,350);
         int moral = genererValeurAleatoire(60,100);
         List<Maladie> maladies = new ArrayList<>();
-        return new Reptilien(nom,sexe,poids,taille,age,moral, maladies);
+        Reptilien reptilien = new Reptilien(nom,sexe,poids,taille,age,moral, maladies);
+        if(clientVIP!=null) clientVIP.ajouterCreature(reptilien);
+        return reptilien;
     }
 }

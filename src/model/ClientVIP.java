@@ -6,17 +6,27 @@ import java.util.List;
 public class ClientVIP {
 	private List<Creature> clientsPrio;
 	
-	// Contructeur
+	/**
+	 * Constructeur de la classe ClientVIP
+	 */
 	public ClientVIP() {
 		clientsPrio = new ArrayList<>();
 	}
 	
-	// Methode pour ajouter des créature
+	/**
+	 * Methode pour ajouter des créature
+	 * 
+	 * @param creature
+	 */
 	public void ajouterCreature(Creature creature) {
 		clientsPrio.add(creature);
 	}
 	
-	// Methode d'attente
+	/**
+	 * Methode d'attente
+	 * 
+	 * @param dureeAttente
+	 */
 	public void attendre(int dureeAttente) {
 		int seuilAttente = 10;
 		

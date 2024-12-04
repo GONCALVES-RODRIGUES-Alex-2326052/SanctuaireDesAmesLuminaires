@@ -102,15 +102,13 @@ public abstract class Creature {
     }
     
     /**
+     *  Methode quand une créature s'emporte a une chance de contaminer une autres créature
      *  
-     * @return le nom de la créature, le fait qu'elle se soit emporter et si elle a contaminer un autre monstre
+     * @return un boolean 
      */
-    public String emporter() {
-    	if (random.nextBoolean()) {
-    		contaminer();
-    		return getNom() + " a contaminer une autres créature en s'emportant apres multiples hurlement !";
-    	}
-    	else return getNom() + " s'est emporter a cause de hurlement consecutive !";
+    public boolean emporter() {
+    	System.out.println(getNom() + " s'est emporter et a une chance de contaminer un autres monstre");
+    	return random.nextBoolean();
     }
     
     /**

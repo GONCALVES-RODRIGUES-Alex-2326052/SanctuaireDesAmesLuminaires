@@ -11,18 +11,32 @@ public class Triage {
 	private List<Creature> habitantTriage;
 	private Random random;
 	
-	//Constructeur
-	public Triage(Orque orque, HommeBete hommeBete, Zombie zombie) {
+	/**
+	 * Constructeur de la classe Triage
+	 * 
+	 * @param orque
+	 * @param hommeBete
+	 * @param zombie
+	 */
+	public Triage() {
 		habitantTriage = new ArrayList<>();
 	}
 	
-	// Methode pour ajouter une créature au Triage
+	/**
+	 * Methode pour ajouter une créature au Triage
+	 * 
+	 * @param creature
+	 */
 	public void ajouterCreature(Creature creature) {
 		habitantTriage.add(creature);
 		System.out.println(creature.getNom() + " a été ajouter au triage.");
 	}
 	
-	// Methode pour verifier la patience des habitant
+	/**
+	 * Methode pour verifier la patience des habitant
+	 * 
+	 * @param creatures
+	 */
 	public void attendre(List<Creature> creatures) {
 		Map<String, List<Creature>> creatureParEspece = new HashMap<>();
 		String espece;
